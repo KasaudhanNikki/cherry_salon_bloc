@@ -1,7 +1,6 @@
 import 'package:bloc_setup/core/utils/gap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../counter/presentation/bloc/counter_bloc.dart';
 import '../../../../injection_container.dart';
 import '../bloc/login_bloc.dart';
 import '../bloc/login_event.dart';
@@ -30,10 +29,9 @@ class _LoginPageState extends State<LoginPage> {
           child: BlocConsumer<LoginBloc, LoginState>(
             listener: (context, state) {
               if (state is LoginSuccess) {
-                Navigator.pushReplacement(
+                ScaffoldMessenger.of(
                   context,
-                  MaterialPageRoute(builder: (_) => const CounterPage()),
-                );
+                ).showSnackBar(SnackBar(content: Text("Success")));
               }
               if (state is LoginError) {
                 ScaffoldMessenger.of(

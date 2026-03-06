@@ -1,7 +1,7 @@
-import 'package:bloc_setup/theme/theme_cubit.dart';
+import 'package:bloc_setup/core/theme/theme_cubit.dart';
+import 'package:bloc_setup/features/on_boarding/presentation/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'features/auth/presentation/pages/login_page.dart';
 import 'injection_container.dart';
 
 void main() async {
@@ -31,7 +31,7 @@ class AppView extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: theme,
-          home: LoginPage(),
+          home: SplashScreen(),
         );
       },
     );
