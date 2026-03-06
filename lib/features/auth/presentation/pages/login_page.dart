@@ -1,14 +1,9 @@
 import 'package:bloc_setup/core/utils/gap.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/common/app_button.dart';
 import '../../../../core/common/app_text.dart';
 import '../../../../core/common/app_text_field.dart';
 import '../../../../core/theme/colors.dart';
-import '../../../../injection_container.dart';
-import '../bloc/login_bloc.dart';
-import '../bloc/login_event.dart';
-import '../bloc/login_state.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -123,6 +118,13 @@ class _LoginPageState extends State<LoginPage> {
               },
             ),
             VerticalGap(15),
+            Row(
+              children: [
+                Expanded(child: Divider(height: 1, color: AppColors.gray.withAlpha(100),endIndent: 10,)),
+                AppText(text: 'Or continue with', color: AppColors.gray),
+                Expanded(child: Divider(height: 1, color: AppColors.gray.withAlpha(100),indent: 10,)),
+              ],
+            ),
           ],
         ),
       ),
