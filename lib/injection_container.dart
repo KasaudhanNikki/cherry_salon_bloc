@@ -10,7 +10,6 @@ import 'features/auth/presentation/bloc/login_bloc.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
-
   sl.registerFactory(() => LoginBloc(loginUseCase: sl()));
 
   sl.registerLazySingleton(() => LoginUseCase(sl()));
@@ -22,6 +21,4 @@ Future<void> init() async {
   sl.registerLazySingleton(() => DioClient());
 
   sl.registerLazySingleton(() => Dio());
-
-
 }
