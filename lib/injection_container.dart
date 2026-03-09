@@ -22,4 +22,6 @@ Future<void> init() async {
   sl.registerLazySingleton(() => DioClient());
 
   sl.registerLazySingleton(() => Dio());
+
+
 }

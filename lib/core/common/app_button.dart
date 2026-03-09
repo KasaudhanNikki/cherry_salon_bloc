@@ -1,3 +1,4 @@
+import 'package:bloc_setup/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'app_text.dart';
 
@@ -7,14 +8,12 @@ class CustomIconButton extends StatelessWidget {
   final double? width;
   final double? height;
   final double iconSize;
-
+  final bool isLoading;
   final FontSize? textSize;
   final FontWeightOption? textWeight;
-
   final Color buttonColor;
   final Color iconColor;
   final Color textColor;
-
   final VoidCallback onPressed;
 
   const CustomIconButton({
@@ -30,6 +29,7 @@ class CustomIconButton extends StatelessWidget {
     this.buttonColor = Colors.blue,
     this.iconColor = Colors.white,
     this.textColor = Colors.white,
+    required this.isLoading,
   });
 
   @override
@@ -45,23 +45,25 @@ class CustomIconButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            AppText(
-              text: text,
-              size: textSize,
-              weight: textWeight,
-              color: textColor,
-            ),
-            const SizedBox(width: 8),
-            Icon(
-              icon,
-              size: iconSize,
-              color: iconColor,
-            ),
-          ],
-        ),
+        child: isLoading
+            ? SizedBox(
+                height: 20,
+                width: 20,
+                child: LinearProgressIndicator(color: AppColors.white),
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AppText(
+                    text: text,
+                    size: textSize,
+                    weight: textWeight,
+                    color: textColor,
+                  ),
+                  const SizedBox(width: 8),
+                  Icon(icon, size: iconSize, color: iconColor),
+                ],
+              ),
       ),
     );
   }

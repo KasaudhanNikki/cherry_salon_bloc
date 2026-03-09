@@ -23,4 +23,5 @@ class AuthRepositoryImpl implements AuthRepository {
       image: userModel.image ?? "",
     );
   }
+
 }
