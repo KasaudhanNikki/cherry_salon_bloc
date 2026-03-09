@@ -4,9 +4,8 @@ class UserModel {
   int? id;
   String? username;
   String? email;
-  String? firstName;
-  String? lastName;
-  String? gender;
+  String? phoneNumber;
+  String? password;
   String? image;
 
   UserModel({
@@ -15,9 +14,8 @@ class UserModel {
     this.id,
     this.username,
     this.email,
-    this.firstName,
-    this.lastName,
-    this.gender,
+    this.phoneNumber,
+    this.password,
     this.image,
   });
 
@@ -27,9 +25,8 @@ class UserModel {
     id = json['id'];
     username = json['username'];
     email = json['email'];
-    firstName = json['firstName'];
-    lastName = json['lastName'];
-    gender = json['gender'];
+    phoneNumber = json['phoneNumber'];
+    password = json['password'];
     image = json['image'];
   }
 
@@ -40,9 +37,8 @@ class UserModel {
     data['id'] = this.id;
     data['username'] = this.username;
     data['email'] = this.email;
-    data['firstName'] = this.firstName;
-    data['lastName'] = this.lastName;
-    data['gender'] = this.gender;
+    data['phoneNumber'] = this.phoneNumber;
+    data['password'] = this.password;
     data['image'] = this.image;
     return data;
   }

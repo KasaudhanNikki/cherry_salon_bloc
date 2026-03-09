@@ -30,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
       child: Scaffold(
         body: BlocConsumer<LoginBloc, LoginState>(
           listener: (context, state) {
-            if (state is LoginSuccess) {
+            if (state is Success) {
               ScaffoldMessenger.of(
                 context,
               ).showSnackBar(SnackBar(content: Text("Success")));
@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
                 (Route<dynamic> route) => false,
               );
             }
-            if (state is LoginError) {
+            if (state is Error) {
               ScaffoldMessenger.of(
                 context,
               ).showSnackBar(SnackBar(content: Text(state.message)));

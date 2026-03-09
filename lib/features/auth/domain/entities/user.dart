@@ -4,9 +4,8 @@ class User {
   final int id;
   final String username;
   final String email;
-  final String firstName;
-  final String lastName;
-  final String gender;
+  final String phoneNumber;
+  final String password;
   final String image;
 
   User({
@@ -15,9 +14,8 @@ class User {
     required this.id,
     required this.username,
     required this.email,
-    required this.firstName,
-    required this.lastName,
-    required this.gender,
     required this.image,
+    required this.phoneNumber,
+    required this.password,
   });
 }
