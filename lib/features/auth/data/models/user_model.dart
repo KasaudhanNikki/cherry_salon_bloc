@@ -1,5 +1,3 @@
-import '../../domain/entities/user.dart';
-
 class UserModel {
   String? accessToken;
   String? refreshToken;

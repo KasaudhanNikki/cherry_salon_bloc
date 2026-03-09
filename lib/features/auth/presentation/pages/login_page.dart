@@ -1,4 +1,5 @@
 import 'package:bloc_setup/core/utils/gap.dart';
+import 'package:bloc_setup/features/auth/presentation/pages/register_page.dart';
 import 'package:bloc_setup/features/dashboard/presentation/pages/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -129,26 +130,26 @@ class _LoginPageState extends State<LoginPage> {
                     },
                   ),
                   VerticalGap(25),
-                    CustomIconButton(
-                      isLoading: state is LoginLoading,
-                      width: MediaQuery.of(context).size.width,
-                      height: 45,
-                      text: "Login",
-                      icon: Icons.arrow_forward,
-                      buttonColor: AppColors.primary,
-                      iconColor: Colors.white,
-                      textColor: Colors.white,
-                      textSize: FontSize.M,
-                      textWeight: FontWeightOption.semiBold,
-                      onPressed: () {
-                        context.read<LoginBloc>().add(
-                          LoginSubmitted(
-                            email: emailController.text,
-                            password: passwordController.text,
-                          ),
-                        );
-                      },
-                    ),
+                  CustomIconButton(
+                    isLoading: state is LoginLoading,
+                    width: MediaQuery.of(context).size.width,
+                    height: 45,
+                    text: "Login",
+                    icon: Icons.arrow_forward,
+                    buttonColor: AppColors.primary,
+                    iconColor: Colors.white,
+                    textColor: Colors.white,
+                    textSize: FontSize.M,
+                    textWeight: FontWeightOption.semiBold,
+                    onPressed: () {
+                      context.read<LoginBloc>().add(
+                        LoginSubmitted(
+                          email: emailController.text,
+                          password: passwordController.text,
+                        ),
+                      );
+                    },
+                  ),
                   VerticalGap(20),
                   Row(
                     children: [
@@ -178,22 +179,32 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   VerticalGap(12),
-                  Center(
-                    child: RichText(
-                      text: TextSpan(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      AppText(
                         text: "Don't have an account?",
-                        style: TextStyle(fontSize: 16, color: AppColors.gray),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: ' SignUp',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: AppColors.primary,
-                            ),
-                          ),
-                        ],
+                        color: AppColors.gray,
+                        size: FontSize.M,
                       ),
-                    ),
+                      HorizontalGap(2),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => RegisterScreen(),
+                            ),
+                          );
+                        },
+                        child: AppText(
+                          text: ' SignUp',
+                          color: AppColors.primary,
+                          size: FontSize.L,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

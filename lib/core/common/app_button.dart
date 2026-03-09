@@ -4,7 +4,7 @@ import 'app_text.dart';
 
 class CustomIconButton extends StatelessWidget {
   final String text;
-  final IconData icon;
+  final IconData? icon;
   final double? width;
   final double? height;
   final double iconSize;
@@ -19,7 +19,7 @@ class CustomIconButton extends StatelessWidget {
   const CustomIconButton({
     super.key,
     required this.text,
-    required this.icon,
+    this.icon,
     required this.onPressed,
     this.width,
     this.height,
@@ -29,7 +29,7 @@ class CustomIconButton extends StatelessWidget {
     this.buttonColor = Colors.blue,
     this.iconColor = Colors.white,
     this.textColor = Colors.white,
-    required this.isLoading,
+    this.isLoading = false,
   });
 
   @override
