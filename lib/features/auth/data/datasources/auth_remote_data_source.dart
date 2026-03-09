@@ -42,15 +42,16 @@ class AuthRemoteDataSource {
   }) async {
     try {
       final response = await client.dio.post(
-        "/c/205c-f203-41a5-97f3",
+        "/users/add",
         data: {
-          "name": username,
+          "firstName": username,
+          "lastName": "",
           "email": email,
           "password": password,
           "phone": phone,
+          "age": "",
         },
       );
-
       AppLogger.info("Status Code: ${response.statusCode}");
       AppLogger.info("Response Data: ${response.data}");
 

@@ -1,4 +1,6 @@
+import 'package:bloc_setup/core/common/app_text.dart';
 import 'package:flutter/material.dart';
+import '../../../../core/theme/colors.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -10,6 +12,15 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Center(
+        child: AppText(
+          text: "Dashboard",
+          size: FontSize.L,
+          weight: FontWeightOption.bold,
+          color: AppColors.primary,
+        ),
+      ),
+    );
   }
 }

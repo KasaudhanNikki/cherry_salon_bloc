@@ -2,7 +2,10 @@ import 'package:bloc_setup/core/common/app_text.dart';
 import 'package:bloc_setup/core/theme/colors.dart';
 import 'package:bloc_setup/core/utils/gap.dart';
 import 'package:flutter/material.dart';
+import '../../../../core/storage/storage_token.dart';
+import '../../../../injection_container.dart';
 import '../../../auth/presentation/pages/login_page.dart';
+import '../../../dashboard/presentation/pages/dashboard.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,26 +19,45 @@ class _SplashScreenState extends State<SplashScreen>
   late AnimationController _progressController;
   late Animation<double> _progressAnimation;
 
+  Future<void> checkLogin() async {
+    final tokenStorage = sl<TokenStorage>();
+
+    final token = await tokenStorage.getToken();
+
+    await Future.delayed(const Duration(seconds: 3));
+
+    if (!mounted) return;
+
+    if (token != null && token.isNotEmpty) {
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (_) => const Dashboard()),
+        (Route<dynamic> route) => false,
+      );
+    } else {
+      Navigator.of(
+        context,
+      ).pushReplacement(MaterialPageRoute(builder: (_) => const LoginPage()));
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+
     _progressController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 3),
     );
+
     _progressAnimation =
         Tween<double>(begin: 0.0, end: 1.0).animate(_progressController)
           ..addListener(() {
             setState(() {});
           });
 
-    _progressController.forward().then((_) {
-      if (mounted) {
-        Navigator.of(
-          context,
-        ).pushReplacement(MaterialPageRoute(builder: (_) => const LoginPage()));
-      }
-    });
+    _progressController.forward();
+
+    checkLogin();
   }
 
   @override

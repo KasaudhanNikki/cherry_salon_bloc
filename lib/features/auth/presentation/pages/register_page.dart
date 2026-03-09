@@ -39,7 +39,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ).showSnackBar(SnackBar(content: Text("Success")));
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => Dashboard()),
+                MaterialPageRoute(builder: (context) => LoginPage()),
                 (Route<dynamic> route) => false,
               );
             }
