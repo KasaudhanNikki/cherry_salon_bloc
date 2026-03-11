@@ -9,7 +9,6 @@ import '../../../../core/common/app_text.dart';
 import '../../../../core/common/app_text_field.dart';
 import '../../../../core/theme/colors.dart';
 import '../../../../injection_container.dart';
-import '../../../dashboard/presentation/pages/dashboard.dart';
 import '../bloc/login_bloc.dart';
 import '../bloc/login_event.dart';
 
