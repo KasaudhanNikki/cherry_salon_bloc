@@ -1,4 +1,5 @@
 import 'package:bloc_setup/core/theme/colors.dart';
+import 'package:bloc_setup/core/utils/gap.dart';
 import 'package:flutter/material.dart';
 import 'app_text.dart';
 
@@ -49,7 +50,7 @@ class CustomIconButton extends StatelessWidget {
             ? SizedBox(
                 height: 20,
                 width: 20,
-                child: LinearProgressIndicator(color: AppColors.white),
+                child: CircularProgressIndicator(color: AppColors.white),
               )
             : Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -60,8 +61,8 @@ class CustomIconButton extends StatelessWidget {
                     weight: textWeight,
                     color: textColor,
                   ),
-                  const SizedBox(width: 8),
-                  Icon(icon, size: iconSize, color: iconColor),
+                  icon != null ? HorizontalGap(8) : SizedBox.shrink(),
+                  icon != null ?Icon(icon, size: iconSize, color: iconColor): SizedBox.shrink(),
                 ],
               ),
       ),

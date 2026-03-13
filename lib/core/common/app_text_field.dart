@@ -4,14 +4,14 @@ class AppTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final IconData? prefixIcon;
+  final IconData? suffixIcon;
   final bool obscureText;
-
   final String? Function(String?)? validator;
-
   final Color borderColor;
   final Color focusedBorderColor;
   final Color iconColor;
-
+  final Function(String)? onChanged;
+  final VoidCallback? onSuffixTap;
   const AppTextField({
     super.key,
     required this.controller,
@@ -22,6 +22,9 @@ class AppTextField extends StatelessWidget {
     this.borderColor = Colors.grey,
     this.focusedBorderColor = Colors.blue,
     this.iconColor = Colors.blue,
+    this.suffixIcon,
+    this.onChanged,
+    this.onSuffixTap,
   });
 
   @override
@@ -33,6 +36,12 @@ class AppTextField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
         prefixIcon: Icon(prefixIcon, color: iconColor),
+        suffixIcon: suffixIcon != null
+            ? IconButton(
+                icon: Icon(suffixIcon, color: iconColor),
+                onPressed: onSuffixTap,
+              )
+            : null,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(color: borderColor),
@@ -46,6 +55,7 @@ class AppTextField extends StatelessWidget {
           borderSide: BorderSide(color: focusedBorderColor, width: 2),
         ),
       ),
+      onChanged: onChanged,
     );
   }
 }

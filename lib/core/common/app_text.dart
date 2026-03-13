@@ -12,13 +12,14 @@ class AppText extends StatelessWidget {
   final FontSize? size;
   final Color? color;
   final Color? decorColor;
+  final TextAlign? align;
   const AppText({
     super.key,
     this.text,
     this.weight,
     this.size,
     this.color,
-    this.decorColor,
+    this.decorColor, this.align,
   });
 
   @override
@@ -26,7 +27,9 @@ class AppText extends StatelessWidget {
     bool isDark = Utils.isDark(context: context);
     return Text(
       text ?? '',
+      textAlign: align,
       style: TextStyle(
+
         fontWeight: weight?.value ?? FontWeight.w500,
         fontSize: size?.value ?? 14.0,
         color: color ?? (isDark ? AppColors.white : AppColors.black),

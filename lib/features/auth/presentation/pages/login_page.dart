@@ -11,6 +11,7 @@ import '../../../../injection_container.dart';
 import '../bloc/login_bloc.dart';
 import '../bloc/login_event.dart';
 import '../bloc/login_state.dart';
+import 'forget_password.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -107,11 +108,21 @@ class _LoginPageState extends State<LoginPage> {
                         size: FontSize.M,
                         weight: FontWeightOption.medium,
                       ),
-                      AppText(
-                        text: 'Forget Password?',
-                        size: FontSize.M,
-                        weight: FontWeightOption.medium,
-                        color: AppColors.primary,
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ForgetPassword(),
+                            ),
+                          );
+                        },
+                        child: AppText(
+                          text: 'Forget Password?',
+                          size: FontSize.M,
+                          weight: FontWeightOption.medium,
+                          color: AppColors.primary,
+                        ),
                       ),
                     ],
                   ),
