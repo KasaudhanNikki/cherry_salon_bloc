@@ -12,6 +12,7 @@ class AppTextField extends StatelessWidget {
   final Color iconColor;
   final Function(String)? onChanged;
   final VoidCallback? onSuffixTap;
+  final BorderRadius borderRadius;
   const AppTextField({
     super.key,
     required this.controller,
@@ -25,6 +26,7 @@ class AppTextField extends StatelessWidget {
     this.suffixIcon,
     this.onChanged,
     this.onSuffixTap,
+    this.borderRadius = const BorderRadius.all(Radius.circular(8)),
   });
 
   @override
@@ -43,15 +45,15 @@ class AppTextField extends StatelessWidget {
               )
             : null,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: borderRadius,
           borderSide: BorderSide(color: borderColor),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: borderRadius,
           borderSide: BorderSide(color: borderColor),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: borderRadius,
           borderSide: BorderSide(color: focusedBorderColor, width: 2),
         ),
       ),

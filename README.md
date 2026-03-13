@@ -62,3 +62,8 @@ flutter run
 ```
 LoginPage → CounterPage
 ```
+
+``Credentials 
+Email:emilys
+Password:emilyspass
+``
