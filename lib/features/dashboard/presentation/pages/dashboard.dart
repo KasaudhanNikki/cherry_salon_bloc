@@ -8,6 +8,7 @@ import '../../../../core/theme/colors.dart';
 import '../../../../core/widgets/salon_card.dart';
 import '../../../../core/widgets/service_card.dart';
 import '../../../../core/widgets/carousel_widget.dart';
+import '../../../salon_details/presentation/pages/salon_details.dart';
 import '../../data/models/deal_model.dart';
 
 class Dashboard extends StatefulWidget {
@@ -193,7 +194,12 @@ class _DashboardState extends State<Dashboard> {
                   location: "Downtown",
                   distance: "2.4 miles away",
                   rating: 4.8,
-                  onViewDetails: () {},
+                  onViewDetails: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SalonDetails()),
+                    );
+                  },
                   onBookNow: () {},
                   onFavorite: () {},
                 ),
@@ -208,7 +214,12 @@ class _DashboardState extends State<Dashboard> {
                   location: "WestEnd",
                   distance: "0.8 miles away",
                   rating: 2.8,
-                  onViewDetails: () {},
+                  onViewDetails: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SalonDetails()),
+                    );
+                  },
                   onBookNow: () {},
                   onFavorite: () {},
                 ),
