@@ -5,6 +5,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/common/app_text_field.dart';
 import '../../../../core/theme/colors.dart';
+import '../../../../core/widgets/appoinment_card.dart';
 import '../../../../core/widgets/salon_card.dart';
 import '../../../../core/widgets/service_card.dart';
 import '../../../../core/widgets/carousel_widget.dart';
@@ -20,6 +21,7 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   final searchController = TextEditingController();
+  final controller = AppointmentController();
 
   final List<DealModel> deals = [
     DealModel(
@@ -222,6 +224,28 @@ class _DashboardState extends State<Dashboard> {
                   },
                   onBookNow: () {},
                   onFavorite: () {},
+                ),
+                VerticalGap(15),
+                AppointmentCard(controller: controller,),
+                Card(
+                  elevation: 0,
+                  color: AppColors.primary.withAlpha(17),
+                  child: Column(
+                    children: [
+                      ListTile(
+                        title: AppText(
+                          text: 'Select Appointment',
+                          size: FontSize.M,
+                          weight: FontWeightOption.bold,
+                        ),
+                        trailing: Icon(
+                          Icons.calendar_month_outlined,
+                          color: AppColors.primary,
+                        ),
+                      ),
+
+                    ],
+                  ),
                 ),
               ],
             ),
