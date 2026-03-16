@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/storage/storage_token.dart';
 import '../../../../injection_container.dart';
 import '../../../auth/presentation/pages/login_page.dart';
-import '../../../dashboard/presentation/pages/dashboard.dart';
+import '../../../dashboard/presentation/pages/bottom_navigation_bar.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     if (token != null && token.isNotEmpty) {
       Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (_) => const Dashboard()),
+        MaterialPageRoute(builder: (_) => const BottomNavigation()),
         (Route<dynamic> route) => false,
       );
     } else {

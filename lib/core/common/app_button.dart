@@ -1,7 +1,7 @@
-import 'package:bloc_setup/core/theme/colors.dart';
-import 'package:bloc_setup/core/utils/gap.dart';
 import 'package:flutter/material.dart';
 import 'app_text.dart';
+
+enum ButtonType { elevated, outlined }
 
 class CustomIconButton extends StatelessWidget {
   final String text;
@@ -16,12 +16,13 @@ class CustomIconButton extends StatelessWidget {
   final Color iconColor;
   final Color textColor;
   final VoidCallback onPressed;
+  final ButtonType buttonType;
 
   const CustomIconButton({
     super.key,
     required this.text,
-    this.icon,
     required this.onPressed,
+    this.icon,
     this.width,
     this.height,
     this.iconSize = 24,
@@ -31,41 +32,64 @@ class CustomIconButton extends StatelessWidget {
     this.iconColor = Colors.white,
     this.textColor = Colors.white,
     this.isLoading = false,
+    this.buttonType = ButtonType.elevated,
   });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: width,
-      height: height,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: buttonColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-        child: isLoading
-            ? SizedBox(
-                height: 20,
-                width: 20,
-                child: CircularProgressIndicator(color: AppColors.white),
-              )
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  AppText(
-                    text: text,
-                    size: textSize,
-                    weight: textWeight,
-                    color: textColor,
-                  ),
-                  icon != null ? HorizontalGap(8) : SizedBox.shrink(),
-                  icon != null ?Icon(icon, size: iconSize, color: iconColor): SizedBox.shrink(),
-                ],
+    final childWidget = isLoading
+        ? const SizedBox(
+            height: 20,
+            width: 20,
+            child: CircularProgressIndicator(),
+          )
+        : Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Flexible(
+                child: AppText(
+                  text: text,
+                  size: textSize,
+                  weight: textWeight,
+                  color: textColor,
+                ),
               ),
-      ),
-    );
+              if (icon != null) const SizedBox(width: 6),
+              if (icon != null) Icon(icon, size: iconSize, color: iconColor),
+            ],
+          );
+
+    Widget button;
+
+    switch (buttonType) {
+      case ButtonType.outlined:
+        button = OutlinedButton(
+          onPressed: onPressed,
+          style: OutlinedButton.styleFrom(
+            side: BorderSide(color: buttonColor),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          child: childWidget,
+        );
+        break;
+
+      case ButtonType.elevated:
+        button = ElevatedButton(
+          onPressed: onPressed,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: buttonColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          child: childWidget,
+        );
+        break;
+    }
+
+    return SizedBox(width: width, height: height, child: button);
   }
 }

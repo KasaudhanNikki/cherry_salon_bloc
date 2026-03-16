@@ -1,6 +1,5 @@
 import 'package:bloc_setup/core/utils/gap.dart';
 import 'package:bloc_setup/features/auth/presentation/pages/register_page.dart';
-import 'package:bloc_setup/features/dashboard/presentation/pages/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/common/app_button.dart';
@@ -8,6 +7,7 @@ import '../../../../core/common/app_text.dart';
 import '../../../../core/common/app_text_field.dart';
 import '../../../../core/theme/colors.dart';
 import '../../../../injection_container.dart';
+import '../../../dashboard/presentation/pages/bottom_navigation_bar.dart';
 import '../bloc/login_bloc.dart';
 import '../bloc/login_event.dart';
 import '../bloc/login_state.dart';
@@ -37,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
               ).showSnackBar(SnackBar(content: Text("Success")));
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => Dashboard()),
+                MaterialPageRoute(builder: (context) => BottomNavigation()),
                 (Route<dynamic> route) => false,
               );
             }

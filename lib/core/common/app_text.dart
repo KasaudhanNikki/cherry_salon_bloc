@@ -13,13 +13,16 @@ class AppText extends StatelessWidget {
   final Color? color;
   final Color? decorColor;
   final TextAlign? align;
+  final int? maxLines;
+  final TextOverflow? overflow;
+  final bool? softWrap;
   const AppText({
     super.key,
     this.text,
     this.weight,
     this.size,
     this.color,
-    this.decorColor, this.align,
+    this.decorColor, this.align, this.maxLines, this.overflow, this.softWrap,
   });
 
   @override
@@ -28,13 +31,15 @@ class AppText extends StatelessWidget {
     return Text(
       text ?? '',
       textAlign: align,
+      maxLines: maxLines,
+      overflow: overflow ?? TextOverflow.ellipsis,
+      softWrap: softWrap ?? true,
       style: TextStyle(
-
         fontWeight: weight?.value ?? FontWeight.w500,
         fontSize: size?.value ?? 14.0,
         color: color ?? (isDark ? AppColors.white : AppColors.black),
         decorationColor:
-            decorColor ?? (isDark ? AppColors.white : AppColors.black),
+        decorColor ?? (isDark ? AppColors.white : AppColors.black),
       ),
     );
   }

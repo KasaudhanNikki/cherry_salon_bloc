@@ -5,6 +5,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/common/app_text_field.dart';
 import '../../../../core/theme/colors.dart';
+import '../../../../core/widgets/salon_card.dart';
+import '../../../../core/widgets/service_card.dart';
 import '../../../../core/widgets/carousel_widget.dart';
 import '../../data/models/deal_model.dart';
 
@@ -33,6 +35,12 @@ class _DashboardState extends State<Dashboard> {
     ),
   ];
 
+  final List<Map<String, dynamic>> categories = [
+    {"icon": Icons.man, "title": "Men"},
+    {"icon": Icons.woman, "title": "Women"},
+    {"icon": Icons.child_care, "title": "Kids"},
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,10 +49,9 @@ class _DashboardState extends State<Dashboard> {
         leading: Padding(
           padding: const EdgeInsets.only(left: 15),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Icon(Icons.flare, color: AppColors.primary),
-              HorizontalGap(12),
+              HorizontalGap(10),
               AppText(
                 text: "Cherry Salon",
                 size: FontSize.L,
@@ -53,84 +60,190 @@ class _DashboardState extends State<Dashboard> {
             ],
           ),
         ),
-        centerTitle: false,
         actions: [
-          CircleAvatar(
-            radius: 15,
-            backgroundColor: AppColors.secondary,
-            child: Icon(
-              Icons.notifications_outlined,
-              color: AppColors.primary,
-              size: 18,
-            ),
-          ),
+          _circleIcon(Icons.notifications_outlined),
           HorizontalGap(8),
-          CircleAvatar(
-            radius: 15,
-            backgroundColor: AppColors.secondary,
-            child: Icon(
-              Icons.shopping_bag_outlined,
-              color: AppColors.primary,
-              size: 18,
-            ),
-          ),
+          _circleIcon(Icons.person_outline_outlined),
+          HorizontalGap(10),
         ],
-        padding: EdgeInsets.only(right: 15),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 18),
-        child: Column(
-          children: [
-            AppTextField(
-              controller: searchController,
-              hintText: "Search for hair, nails,or spa...",
-              prefixIcon: Icons.search,
-              iconColor: AppColors.primary,
-              borderColor: AppColors.secondary,
-              borderRadius: BorderRadius.circular(12),
-              validator: (value) {
-                return null;
-              },
-            ),
-            VerticalGap(20),
-            CarouselSlider(
-              options: CarouselOptions(
-                height: 170,
-                viewportFraction: 0.9,
-                enlargeCenterPage: true,
-                autoPlayCurve: Curves.linear,
-              ),
-              items: deals.map((deal) {
-                return DealCard(
-                  width: MediaQuery.of(context).size.width,
-                  image: deal.image,
-                  tag: deal.tag,
-                  title: deal.title,
-                  subtitle: deal.subtitle,
-                );
-              }).toList(),
-            ),
-            VerticalGap(20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                AppTextField(
+                  controller: searchController,
+                  hintText: "Search for hair, nails, or spa...",
+                  prefixIcon: Icons.search,
+                  iconColor: AppColors.primary,
+                  borderColor: AppColors.secondary,
+                  borderRadius: BorderRadius.circular(12),
+                  validator: (value) => null,
+                ),
+                VerticalGap(20),
+                CarouselSlider(
+                  options: CarouselOptions(
+                    height: 170,
+                    viewportFraction: 0.9,
+                    enlargeCenterPage: true,
+                    autoPlay: true,
+                  ),
+                  items: deals.map((deal) {
+                    return DealCard(
+                      width: MediaQuery.of(context).size.width,
+                      image: deal.image,
+                      tag: deal.tag,
+                      title: deal.title,
+                      subtitle: deal.subtitle,
+                    );
+                  }).toList(),
+                ),
+                VerticalGap(20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    AppText(
+                      text: "Categories",
+                      size: FontSize.M,
+                      weight: FontWeightOption.bold,
+                    ),
+                    AppText(
+                      text: "View All",
+                      size: FontSize.M,
+                      weight: FontWeightOption.bold,
+                      color: AppColors.primary,
+                    ),
+                  ],
+                ),
+                VerticalGap(15),
+                SizedBox(
+                  height: 95,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: categories.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: SizedBox(
+                          width: 80,
+                          child: _category(
+                            categories[index]["icon"],
+                            categories[index]["title"],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                VerticalGap(20),
                 AppText(
-                  text: "Categories",
+                  text: "Featured Services",
                   size: FontSize.M,
                   weight: FontWeightOption.bold,
                 ),
-                AppText(
-                  text: "View All",
-                  size: FontSize.M,
-                  weight: FontWeightOption.bold,
-                  color: AppColors.primary,
+                VerticalGap(15),
+                serviceCard(
+                  "assets/featured_services/haircut.png",
+                  "Signature Haircut",
+                  "Personalized cut, wash & blow-dry...",
+                  "\$45",
+                ),
+                VerticalGap(12),
+                serviceCard(
+                  "assets/featured_services/beard.png",
+                  "Beard Grooming",
+                  "Trim, shape and hot towel treatment",
+                  "\$25",
+                ),
+                VerticalGap(12),
+                serviceCard(
+                  "assets/featured_services/nails.png",
+                  "Gel Manicure",
+                  "Long-lasting color with cuticle care",
+                  "\$35",
+                ),
+                VerticalGap(20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    AppText(
+                      text: "Nearby Salons",
+                      size: FontSize.M,
+                      weight: FontWeightOption.bold,
+                    ),
+                    AppText(
+                      text: "See All",
+                      size: FontSize.M,
+                      weight: FontWeightOption.bold,
+                      color: AppColors.primary,
+                    ),
+                  ],
+                ),
+                VerticalGap(15),
+                StudioCard(
+                  images: [
+                    "assets/salon_images/salon1.png",
+                    "assets/salon_images/salon2.png",
+                  ],
+                  title: "Velvet Rose Studio",
+                  location: "Downtown",
+                  distance: "2.4 miles away",
+                  rating: 4.8,
+                  onViewDetails: () {},
+                  onBookNow: () {},
+                  onFavorite: () {},
+                ),
+                VerticalGap(10),
+                StudioCard(
+                  images: [
+                    "assets/salon_images/salon3.png",
+                    "assets/salon_images/salon2.png",
+                    "assets/salon_images/salon1.png",
+                  ],
+                  title: "The Crimson Curl",
+                  location: "WestEnd",
+                  distance: "0.8 miles away",
+                  rating: 2.8,
+                  onViewDetails: () {},
+                  onBookNow: () {},
+                  onFavorite: () {},
                 ),
               ],
             ),
-            VerticalGap(10),
-          ],
+          ),
         ),
       ),
+    );
+  }
+
+  Widget _category(IconData icon, String title) {
+    return Column(
+      children: [
+        Container(
+          height: 65,
+          width: 65,
+          decoration: BoxDecoration(
+            color: AppColors.secondary,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Icon(icon, size: 30, color: AppColors.primary),
+        ),
+        VerticalGap(6),
+        AppText(text: title, size: FontSize.S),
+        HorizontalGap(20),
+      ],
+    );
+  }
+
+  Widget _circleIcon(IconData icon) {
+    return CircleAvatar(
+      radius: 15,
+      backgroundColor: AppColors.secondary,
+      child: Icon(icon, color: AppColors.primary, size: 18),
     );
   }
 }
