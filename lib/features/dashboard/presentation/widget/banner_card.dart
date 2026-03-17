@@ -1,14 +1,14 @@
 import 'package:bloc_setup/core/utils/gap.dart';
 import 'package:flutter/material.dart';
-import '../theme/colors.dart';
+import '../../../../core/theme/colors.dart';
 
-class DealCard extends StatelessWidget {
+class BannerCard extends StatelessWidget {
   final String image;
   final String tag;
   final String title;
   final String subtitle;
   final double? width;
-  const DealCard({
+  const BannerCard({
     super.key,
     required this.image,
     required this.tag,

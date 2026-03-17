@@ -5,10 +5,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/common/app_text_field.dart';
 import '../../../../core/theme/colors.dart';
-import '../../../../core/widgets/appoinment_card.dart';
-import '../../../../core/widgets/salon_card.dart';
-import '../../../../core/widgets/service_card.dart';
-import '../../../../core/widgets/carousel_widget.dart';
+import '../../../appoinment/presentation/controllers/appointment_controller.dart';
+import '../../../appoinment/presentation/pages/appoinment_card.dart';
+import '../widget/salon_card.dart';
+import '../widget/service_card.dart';
+import '../widget/banner_card.dart';
 import '../../../salon_details/presentation/pages/salon_details.dart';
 import '../../data/models/deal_model.dart';
 
@@ -96,7 +97,7 @@ class _DashboardState extends State<Dashboard> {
                     autoPlay: true,
                   ),
                   items: deals.map((deal) {
-                    return DealCard(
+                    return BannerCard(
                       width: MediaQuery.of(context).size.width,
                       image: deal.image,
                       tag: deal.tag,
@@ -226,27 +227,7 @@ class _DashboardState extends State<Dashboard> {
                   onFavorite: () {},
                 ),
                 VerticalGap(15),
-                AppointmentCard(controller: controller,),
-                Card(
-                  elevation: 0,
-                  color: AppColors.primary.withAlpha(17),
-                  child: Column(
-                    children: [
-                      ListTile(
-                        title: AppText(
-                          text: 'Select Appointment',
-                          size: FontSize.M,
-                          weight: FontWeightOption.bold,
-                        ),
-                        trailing: Icon(
-                          Icons.calendar_month_outlined,
-                          color: AppColors.primary,
-                        ),
-                      ),
-
-                    ],
-                  ),
-                ),
+                AppointmentCard(controller: controller),
               ],
             ),
           ),

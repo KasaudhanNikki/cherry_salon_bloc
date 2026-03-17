@@ -3,8 +3,7 @@ import 'package:bloc_setup/core/utils/gap.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/common/app_text.dart';
 import '../../../../core/theme/colors.dart';
-import '../../../../core/widgets/location_card.dart';
-import '../../../../core/widgets/salon_widgets.dart';
+import '../widget/salon_widgets.dart';
 
 class SalonDetails extends StatefulWidget {
   const SalonDetails({super.key});

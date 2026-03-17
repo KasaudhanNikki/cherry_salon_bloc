@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../common/app_text.dart';
-import '../theme/colors.dart';
-import '../utils/gap.dart';
+import '../../../../core/common/app_text.dart';
+import '../../../../core/theme/colors.dart';
+import '../../../../core/utils/gap.dart';
 
 Widget serviceCard(
     String image,

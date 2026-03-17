@@ -1,8 +1,8 @@
 import 'package:bloc_setup/core/common/app_text.dart';
 import 'package:bloc_setup/core/utils/gap.dart';
 import 'package:flutter/material.dart';
-import '../common/app_button.dart';
-import '../theme/colors.dart';
+import '../../../../core/common/app_button.dart';
+import '../../../../core/theme/colors.dart';
 
 class StudioCard extends StatelessWidget {
   final List<String> images;

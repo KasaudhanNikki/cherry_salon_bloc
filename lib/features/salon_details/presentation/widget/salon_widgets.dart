@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../common/app_text.dart';
-import '../theme/colors.dart';
-import '../utils/gap.dart';
-import 'location_card.dart';
+import '../../../../core/common/app_text.dart';
+import '../../../../core/theme/colors.dart';
+import '../../../../core/utils/gap.dart';
+import '../../../../core/widgets/location_card.dart';
 
 Widget buildServiceCard(Map<String, dynamic> service) {
   return Container(
