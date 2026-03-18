@@ -13,6 +13,7 @@ class AppTextField extends StatelessWidget {
   final Function(String)? onChanged;
   final VoidCallback? onSuffixTap;
   final BorderRadius borderRadius;
+  final VoidCallback? onTap;
   const AppTextField({
     super.key,
     required this.controller,
@@ -27,11 +28,13 @@ class AppTextField extends StatelessWidget {
     this.onChanged,
     this.onSuffixTap,
     this.borderRadius = const BorderRadius.all(Radius.circular(8)),
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onTap: onTap,
       controller: controller,
       obscureText: obscureText,
       validator: validator,

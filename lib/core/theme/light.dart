@@ -4,17 +4,20 @@ import 'colors.dart';
 
 ThemeData lightTheme() {
   return ThemeData(
-    scaffoldBackgroundColor: AppColors.white,
+    brightness: Brightness.light, // ✅ important
+    scaffoldBackgroundColor: Colors.white,
+
     colorScheme: const ColorScheme.light().copyWith(
       primary: AppColors.primary,
       secondary: AppColors.secondary,
       tertiary: AppColors.accent,
       error: AppColors.error,
-      onPrimary: AppColors.white,
-      onSecondary: AppColors.white,
-      onTertiary: AppColors.white,
-      onError: AppColors.white,
-      onSurface: AppColors.black,
+
+      onPrimary: Colors.white,
+      onSecondary: Colors.white,
+      onTertiary: Colors.white,
+      onError: Colors.white,
+      onSurface: Colors.black,
     ),
   );
 }

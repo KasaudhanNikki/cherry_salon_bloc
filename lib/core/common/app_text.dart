@@ -22,7 +22,11 @@ class AppText extends StatelessWidget {
     this.weight,
     this.size,
     this.color,
-    this.decorColor, this.align, this.maxLines, this.overflow, this.softWrap,
+    this.decorColor,
+    this.align,
+    this.maxLines,
+    this.overflow,
+    this.softWrap,
   });
 
   @override
@@ -37,9 +41,8 @@ class AppText extends StatelessWidget {
       style: TextStyle(
         fontWeight: weight?.value ?? FontWeight.w500,
         fontSize: size?.value ?? 14.0,
-        color: color ?? (isDark ? AppColors.white : AppColors.black),
-        decorationColor:
-        decorColor ?? (isDark ? AppColors.white : AppColors.black),
+        color: color,
+        decorationColor: decorColor,
       ),
     );
   }

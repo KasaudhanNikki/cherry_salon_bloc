@@ -39,7 +39,7 @@ class TimeGrid extends StatelessWidget {
                       ? AppColors.gray.withOpacity(0.2)
                       : isSelected
                       ? AppColors.primary
-                      : AppColors.white,
+                      : AppColors.background(context),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 alignment: Alignment.center,
@@ -48,8 +48,8 @@ class TimeGrid extends StatelessWidget {
                   color: isDisabled
                       ? AppColors.gray
                       : isSelected
-                      ? AppColors.white
-                      : AppColors.black,
+                      ? AppColors.background(context)
+                      : AppColors.textPrimary(context),
                   size: FontSize.S,
                   weight: FontWeightOption.semiBold,
                 ),

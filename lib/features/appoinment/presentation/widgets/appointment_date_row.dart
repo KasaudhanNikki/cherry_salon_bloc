@@ -28,7 +28,7 @@ class DateRow extends StatelessWidget {
                 curve: Curves.easeInOut,
                 width: 60,
                 decoration: BoxDecoration(
-                  color: isSelected ? AppColors.primary : AppColors.white,
+                  color: isSelected ? AppColors.primary :  AppColors.background(context),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
@@ -38,11 +38,11 @@ class DateRow extends StatelessWidget {
                       text: item.day,
                       size: FontSize.XS,
                       weight: FontWeightOption.bold,
-                      color: isSelected ? AppColors.white : AppColors.gray,
+                      color: isSelected ? AppColors.background(context) : AppColors.gray,
                     ),
                     AppText(
                       text: item.date,
-                      color: isSelected ? AppColors.white : AppColors.black,
+                      color: isSelected ? AppColors.background(context) : AppColors.textPrimary(context),
                       size: FontSize.L,
                       weight: FontWeightOption.bold,
                     ),

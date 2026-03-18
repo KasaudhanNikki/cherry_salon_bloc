@@ -46,10 +46,6 @@ class _ResetSuccessPasswordState extends State<ResetSuccessPassword> {
                 width: MediaQuery.of(context).size.width,
                 height: 45,
                 text: "Back to login",
-                buttonColor: AppColors.primary,
-                textColor: Colors.white,
-                textSize: FontSize.M,
-                textWeight: FontWeightOption.semiBold,
                 onPressed: () {
                   Navigator.push(
                     context,

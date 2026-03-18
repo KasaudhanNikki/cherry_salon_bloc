@@ -66,10 +66,6 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               width: MediaQuery.of(context).size.width,
               height: 45,
               text: "Send Reset Link",
-              buttonColor: AppColors.primary,
-              textColor: Colors.white,
-              textSize: FontSize.M,
-              textWeight: FontWeightOption.semiBold,
               onPressed: () {
                 Navigator.push(
                   context,

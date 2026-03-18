@@ -67,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                       text: "Cherry Salon",
                       size: FontSize.XL,
                       weight: FontWeightOption.bold,
-                      color: AppColors.black,
+                      color: AppColors.textPrimary(context),
                     ),
                   ),
                   VerticalGap(5),
@@ -147,11 +147,6 @@ class _LoginPageState extends State<LoginPage> {
                     height: 45,
                     text: "Login",
                     icon: Icons.arrow_forward,
-                    buttonColor: AppColors.primary,
-                    iconColor: Colors.white,
-                    textColor: Colors.white,
-                    textSize: FontSize.M,
-                    textWeight: FontWeightOption.semiBold,
                     onPressed: () {
                       context.read<LoginBloc>().add(
                         LoginSubmitted(

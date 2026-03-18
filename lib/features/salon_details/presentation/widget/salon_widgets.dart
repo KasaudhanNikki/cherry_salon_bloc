@@ -1,15 +1,18 @@
+import 'package:bloc_setup/core/common/app_button.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/common/app_text.dart';
 import '../../../../core/theme/colors.dart';
 import '../../../../core/utils/gap.dart';
 import '../../../../core/widgets/location_card.dart';
+import '../../../appoinment/presentation/controllers/appointment_controller.dart';
+import '../../../appoinment/presentation/pages/appoinment_card.dart';
 
-Widget buildServiceCard(Map<String, dynamic> service) {
+Widget buildServiceCard(BuildContext context, Map<String, dynamic> service) {
   return Container(
     margin: const EdgeInsets.only(bottom: 12),
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
     decoration: BoxDecoration(
-      color: AppColors.white,
+      color: AppColors.background(context),
       borderRadius: BorderRadius.circular(12),
       boxShadow: [
         BoxShadow(
@@ -30,7 +33,7 @@ Widget buildServiceCard(Map<String, dynamic> service) {
                 text: service['name'],
                 weight: FontWeightOption.bold,
                 size: FontSize.M,
-                color: AppColors.black,
+                color: AppColors.textPrimary(context),
               ),
               VerticalGap(4),
               AppText(
@@ -52,29 +55,38 @@ Widget buildServiceCard(Map<String, dynamic> service) {
           ),
         ),
         HorizontalGap(12),
-        ElevatedButton(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.primary,
-            foregroundColor: AppColors.white,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-            elevation: 0,
-          ),
-          child: const Text(
-            'Book',
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
-          ),
+        CustomIconButton(
+          text: 'Book',
+          onPressed: () {
+            final controller = AppointmentController();
+            showDialog(
+              context: context,
+              barrierDismissible: true,
+              builder: (dialogContext) {
+                return Dialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  insetPadding: const EdgeInsets.all(16),
+                  child: SingleChildScrollView(
+                    child: AppointmentCard(
+                      controller: controller,
+                      onClose: () {
+                        Navigator.pop(dialogContext);
+                      },
+                    ),
+                  ),
+                );
+              },
+            );
+          },
         ),
       ],
     ),
   );
 }
 
-
-Widget buildLocationSection() {
+Widget buildLocationSection(BuildContext context) {
   return Padding(
     padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
     child: Column(
@@ -92,7 +104,7 @@ Widget buildLocationSection() {
               text: 'Location',
               weight: FontWeightOption.bold,
               size: FontSize.M,
-              color: AppColors.black,
+              color: AppColors.textPrimary(context),
             ),
           ],
         ),
@@ -104,7 +116,7 @@ Widget buildLocationSection() {
   );
 }
 
-Widget buildSalonHeader() {
+Widget buildSalonHeader(BuildContext context) {
   return Padding(
     padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
     child: Row(
@@ -130,7 +142,7 @@ Widget buildSalonHeader() {
                 text: 'Velvet Rose Studio',
                 weight: FontWeightOption.bold,
                 size: FontSize.M,
-                color: AppColors.black,
+                color: AppColors.textPrimary(context),
               ),
               VerticalGap(2),
               AppText(
@@ -148,7 +160,7 @@ Widget buildSalonHeader() {
                     text: '4.8',
                     weight: FontWeightOption.bold,
                     size: FontSize.M,
-                    color: AppColors.black,
+                    color: AppColors.textPrimary(context),
                   ),
                   HorizontalGap(4),
                   AppText(
@@ -167,7 +179,7 @@ Widget buildSalonHeader() {
   );
 }
 
-Widget buildHourRow(String day, String time) {
+Widget buildHourRow(BuildContext context, String day, String time) {
   final bool isClosed = time == 'Closed';
   return Padding(
     padding: const EdgeInsets.only(bottom: 10),
@@ -178,13 +190,13 @@ Widget buildHourRow(String day, String time) {
           text: day,
           weight: FontWeightOption.bold,
           size: FontSize.M,
-          color: AppColors.black,
+          color: AppColors.textPrimary(context),
         ),
         AppText(
           text: time,
           weight: FontWeightOption.bold,
           size: FontSize.M,
-          color: isClosed ? AppColors.primary : AppColors.black,
+          color: isClosed ? AppColors.primary : AppColors.textPrimary(context),
         ),
       ],
     ),

@@ -55,12 +55,12 @@ class _SalonDetailsState extends State<SalonDetails>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.background(context),
       appBar: CustomAppBar(
         title: "Salon Details",
         actions: [
           IconButton(
-            icon: Icon(Icons.share_outlined, color: AppColors.black, size: 22),
+            icon: Icon(Icons.share_outlined, color: AppColors.textPrimary(context), size: 22),
             onPressed: () {},
           ),
         ],
@@ -70,11 +70,11 @@ class _SalonDetailsState extends State<SalonDetails>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.asset("assets/salon_images/salon3.png"),
-            buildSalonHeader(),
+            buildSalonHeader(context),
             _buildTabBar(),
             _buildServicesSection(),
-            buildLocationSection(),
-            _buildHoursSection(),
+            buildLocationSection(context),
+            _buildHoursSection(context),
             VerticalGap(32),
           ],
         ),
@@ -136,16 +136,16 @@ class _SalonDetailsState extends State<SalonDetails>
             text: 'Popular Services',
             weight: FontWeightOption.bold,
             size: FontSize.M,
-            color: AppColors.black,
+            color: AppColors.textPrimary(context),
           ),
           VerticalGap(12),
-          ..._services.map((s) => buildServiceCard(s)),
+          ..._services.map((s) => buildServiceCard(context, s)),
         ],
       ),
     );
   }
 
-  Widget _buildHoursSection() {
+  Widget _buildHoursSection(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
       child: Column(
@@ -163,12 +163,12 @@ class _SalonDetailsState extends State<SalonDetails>
                 text: 'Opening Hours',
                 weight: FontWeightOption.bold,
                 size: FontSize.M,
-                color: AppColors.black,
+                color: AppColors.textPrimary(context),
               ),
             ],
           ),
           VerticalGap(12),
-          ..._hours.map((h) => buildHourRow(h['day']!, h['time']!)),
+          ..._hours.map((h) => buildHourRow(context,h['day']!, h['time']!)),
         ],
       ),
     );

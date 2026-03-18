@@ -13,14 +13,18 @@ import '../widgets/appointment_time_grid.dart';
 
 class AppointmentCard extends StatelessWidget {
   final AppointmentController controller;
-
-  const AppointmentCard({super.key, required this.controller});
+  final VoidCallback onClose;
+  const AppointmentCard({
+    super.key,
+    required this.controller,
+    required this.onClose,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 0,
-      color: AppColors.primary.withAlpha(17),
+      color: AppColors.secondary.withAlpha(15),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -40,10 +44,13 @@ class AppointmentCard extends StatelessWidget {
                     letterSpacing: 0.3,
                   ),
                 ),
-                Icon(
-                  Icons.calendar_month_outlined,
-                  color: AppColors.primary,
-                  size: 24,
+                InkWell(
+                  onTap: onClose,
+                  child: CircleAvatar(
+                    radius: 12,
+                    backgroundColor: AppColors.primary,
+                    child: Icon(Icons.close, color: AppColors.background(context), size: 18),
+                  ),
                 ),
               ],
             ),
@@ -93,11 +100,6 @@ class AppointmentCard extends StatelessWidget {
               height: 45,
               text: 'Confirm Booking',
               icon: Icons.arrow_forward,
-              buttonColor: AppColors.primary,
-              iconColor: Colors.white,
-              textColor: Colors.white,
-              textSize: FontSize.M,
-              textWeight: FontWeightOption.semiBold,
               onPressed: () {
                 final date = controller.selectedDate;
                 final time = controller.selectedTime;

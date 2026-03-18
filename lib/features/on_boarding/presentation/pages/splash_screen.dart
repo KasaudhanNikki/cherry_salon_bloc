@@ -94,7 +94,7 @@ class _SplashScreenState extends State<SplashScreen>
               text: "Cherry Salon",
               size: FontSize.XXL,
               weight: FontWeightOption.bold,
-              color: AppColors.black,
+              color: AppColors.textPrimary(context),
             ),
             VerticalGap(16),
             Padding(
@@ -104,7 +104,7 @@ class _SplashScreenState extends State<SplashScreen>
                 child: AppText(
                   text: "Your premium salon experience starts here.",
                   size: FontSize.M,
-                  color: AppColors.black,
+                  color: AppColors.textPrimary(context),
                 ),
               ),
             ),

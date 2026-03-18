@@ -31,12 +31,12 @@ class StudioCard extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: AppColors.background(context),
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
             blurRadius: 12,
-            color: AppColors.black.withOpacity(.08),
+            color: AppColors.textPrimary(context).withOpacity(.08),
             offset: const Offset(0, 6),
           ),
         ],
@@ -141,8 +141,6 @@ class StudioCard extends StatelessWidget {
                       child: CustomIconButton(
                         text: "View Details",
                         buttonType: ButtonType.outlined,
-                        buttonColor: AppColors.primary,
-                        textColor: AppColors.primary,
                         onPressed: onViewDetails ?? () {},
                       ),
                     ),
@@ -150,8 +148,6 @@ class StudioCard extends StatelessWidget {
                     Expanded(
                       child: CustomIconButton(
                         text: "Book Now",
-                        buttonColor: AppColors.primary,
-                        textColor: AppColors.white,
                         onPressed: onBookNow ?? () {},
                       ),
                     ),

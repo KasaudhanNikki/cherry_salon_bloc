@@ -92,10 +92,6 @@ class _ResetPasswordState extends State<ResetPassword> {
               width: MediaQuery.of(context).size.width,
               height: 45,
               text: "Reset Password",
-              buttonColor: AppColors.primary,
-              textColor: Colors.white,
-              textSize: FontSize.M,
-              textWeight: FontWeightOption.semiBold,
               onPressed: () {
                 Navigator.push(
                   context,

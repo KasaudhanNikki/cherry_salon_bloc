@@ -1,3 +1,4 @@
+import 'package:bloc_setup/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'app_text.dart';
 
@@ -10,11 +11,6 @@ class CustomIconButton extends StatelessWidget {
   final double? height;
   final double iconSize;
   final bool isLoading;
-  final FontSize? textSize;
-  final FontWeightOption? textWeight;
-  final Color buttonColor;
-  final Color iconColor;
-  final Color textColor;
   final VoidCallback onPressed;
   final ButtonType buttonType;
 
@@ -26,11 +22,6 @@ class CustomIconButton extends StatelessWidget {
     this.width,
     this.height,
     this.iconSize = 24,
-    this.textSize,
-    this.textWeight,
-    this.buttonColor = Colors.blue,
-    this.iconColor = Colors.white,
-    this.textColor = Colors.white,
     this.isLoading = false,
     this.buttonType = ButtonType.elevated,
   });
@@ -50,13 +41,20 @@ class CustomIconButton extends StatelessWidget {
               Flexible(
                 child: AppText(
                   text: text,
-                  size: textSize,
-                  weight: textWeight,
-                  color: textColor,
+                  size: FontSize.M,
+                  weight: FontWeightOption.semiBold,
+                  color: buttonType == ButtonType.elevated
+                      ? AppColors.background(context)
+                      : AppColors.primary,
                 ),
               ),
               if (icon != null) const SizedBox(width: 6),
-              if (icon != null) Icon(icon, size: iconSize, color: iconColor),
+              if (icon != null)
+                Icon(
+                  icon,
+                  size: iconSize,
+                  color: AppColors.background(context),
+                ),
             ],
           );
 
@@ -67,7 +65,7 @@ class CustomIconButton extends StatelessWidget {
         button = OutlinedButton(
           onPressed: onPressed,
           style: OutlinedButton.styleFrom(
-            side: BorderSide(color: buttonColor),
+            side: BorderSide(color: AppColors.primary),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
@@ -80,7 +78,7 @@ class CustomIconButton extends StatelessWidget {
         button = ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
-            backgroundColor: buttonColor,
+            backgroundColor: AppColors.primary,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),

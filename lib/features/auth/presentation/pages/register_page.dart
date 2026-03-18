@@ -149,10 +149,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     width: MediaQuery.of(context).size.width,
                     height: 45,
                     text: "Sign Up",
-                    buttonColor: AppColors.primary,
-                    textColor: Colors.white,
-                    textSize: FontSize.M,
-                    textWeight: FontWeightOption.semiBold,
                     onPressed: () {
                       context.read<RegisterBloc>().add(
                         RegisterSubmitted(

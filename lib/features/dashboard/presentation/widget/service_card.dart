@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import '../../../../core/common/app_button.dart';
 import '../../../../core/common/app_text.dart';
 import '../../../../core/theme/colors.dart';
 import '../../../../core/utils/gap.dart';
+import '../../../appoinment/presentation/controllers/appointment_controller.dart';
+import '../../../appoinment/presentation/pages/appoinment_card.dart';
 
 Widget serviceCard(
     String image,
     String title,
     String subtitle,
     String price,
+    BuildContext context
     ) {
   return Container(
     padding: const EdgeInsets.all(12),
@@ -52,20 +56,31 @@ Widget serviceCard(
           ),
         ),
         HorizontalGap(10),
-        SizedBox(
-          width: 75,
-          height: 38,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primary,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              padding: EdgeInsets.zero,
-            ),
-            onPressed: () {},
-            child: Text("Book", style: TextStyle(color: AppColors.white)),
-          ),
+        CustomIconButton(
+          text: 'Book',
+          onPressed: () {
+            final controller = AppointmentController();
+            showDialog(
+              context: context,
+              barrierDismissible: true,
+              builder: (dialogContext) {
+                return Dialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  insetPadding: const EdgeInsets.all(16),
+                  child: SingleChildScrollView(
+                    child: AppointmentCard(
+                      controller: controller,
+                      onClose: () {
+                        Navigator.pop(dialogContext);
+                      },
+                    ),
+                  ),
+                );
+              },
+            );
+          },
         ),
       ],
     ),

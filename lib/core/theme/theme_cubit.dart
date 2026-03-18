@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'colors.dart';
+
 class ThemeCubit extends Cubit<ThemeData> {
   ThemeCubit() : super(_lightTheme);
 
   static final _lightTheme = ThemeData(
-    floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      foregroundColor: Colors.white,
-    ),
     brightness: Brightness.light,
+    colorScheme: ColorScheme.light(
+      primary: AppColors.primary,
+      secondary: AppColors.secondary,
+    ),
   );
 
   static final _darkTheme = ThemeData(
-    floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      foregroundColor: Colors.black,
-    ),
     brightness: Brightness.dark,
+    colorScheme: ColorScheme.dark(
+      primary: AppColors.primary,
+      secondary: AppColors.secondary,
+    ),
   );
   void toggleTheme() {
     emit(state.brightness == Brightness.dark ? _lightTheme : _darkTheme);

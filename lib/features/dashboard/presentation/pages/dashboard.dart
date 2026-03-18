@@ -1,10 +1,14 @@
 import 'package:bloc_setup/core/common/app_bar.dart';
 import 'package:bloc_setup/core/common/app_text.dart';
 import 'package:bloc_setup/core/utils/gap.dart';
+import 'package:bloc_setup/features/search/presentation/pages/search_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/common/app_text_field.dart';
 import '../../../../core/theme/colors.dart';
+import '../../../../core/theme/theme_cubit.dart';
+import '../../../../core/widgets/circle_icon.dart';
 import '../../../appoinment/presentation/controllers/appointment_controller.dart';
 import '../../../appoinment/presentation/pages/appoinment_card.dart';
 import '../widget/salon_card.dart';
@@ -23,6 +27,8 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   final searchController = TextEditingController();
   final controller = AppointmentController();
+
+  bool isShowAppoinment = false;
 
   final List<DealModel> deals = [
     DealModel(
@@ -47,6 +53,7 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: CustomAppBar(
         leadingWidth: 160,
@@ -54,7 +61,15 @@ class _DashboardState extends State<Dashboard> {
           padding: const EdgeInsets.only(left: 15),
           child: Row(
             children: [
-              Icon(Icons.flare, color: AppColors.primary),
+              InkWell(
+                onTap: () {
+                  context.read<ThemeCubit>().toggleTheme();
+                },
+                child: Icon(
+                  isDark ? Icons.dark_mode : Icons.light_mode,
+                  color: AppColors.primary,
+                ),
+              ),
               HorizontalGap(10),
               AppText(
                 text: "Cherry Salon",
@@ -65,9 +80,9 @@ class _DashboardState extends State<Dashboard> {
           ),
         ),
         actions: [
-          _circleIcon(Icons.notifications_outlined),
+          circleIcon(Icons.notifications_outlined),
           HorizontalGap(8),
-          _circleIcon(Icons.person_outline_outlined),
+          circleIcon(Icons.person_outline_outlined),
           HorizontalGap(10),
         ],
       ),
@@ -86,7 +101,14 @@ class _DashboardState extends State<Dashboard> {
                   iconColor: AppColors.primary,
                   borderColor: AppColors.secondary,
                   borderRadius: BorderRadius.circular(12),
+                  focusedBorderColor: AppColors.primary,
                   validator: (value) => null,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SearchScreen()),
+                    );
+                  },
                 ),
                 VerticalGap(20),
                 CarouselSlider(
@@ -155,6 +177,7 @@ class _DashboardState extends State<Dashboard> {
                   "Signature Haircut",
                   "Personalized cut, wash & blow-dry...",
                   "\$45",
+                  context,
                 ),
                 VerticalGap(12),
                 serviceCard(
@@ -162,6 +185,7 @@ class _DashboardState extends State<Dashboard> {
                   "Beard Grooming",
                   "Trim, shape and hot towel treatment",
                   "\$25",
+                  context,
                 ),
                 VerticalGap(12),
                 serviceCard(
@@ -169,6 +193,7 @@ class _DashboardState extends State<Dashboard> {
                   "Gel Manicure",
                   "Long-lasting color with cuticle care",
                   "\$35",
+                  context,
                 ),
                 VerticalGap(20),
                 Row(
@@ -203,7 +228,11 @@ class _DashboardState extends State<Dashboard> {
                       MaterialPageRoute(builder: (context) => SalonDetails()),
                     );
                   },
-                  onBookNow: () {},
+                  onBookNow: () {
+                    setState(() {
+                      isShowAppoinment = true;
+                    });
+                  },
                   onFavorite: () {},
                 ),
                 VerticalGap(10),
@@ -223,11 +252,24 @@ class _DashboardState extends State<Dashboard> {
                       MaterialPageRoute(builder: (context) => SalonDetails()),
                     );
                   },
-                  onBookNow: () {},
+                  onBookNow: () {
+                    setState(() {
+                      isShowAppoinment = true;
+                    });
+                  },
                   onFavorite: () {},
                 ),
                 VerticalGap(15),
-                AppointmentCard(controller: controller),
+                isShowAppoinment
+                    ? AppointmentCard(
+                        controller: controller,
+                        onClose: () {
+                          setState(() {
+                            isShowAppoinment = false;
+                          });
+                        },
+                      )
+                    : SizedBox.shrink(),
               ],
             ),
           ),
@@ -252,14 +294,6 @@ class _DashboardState extends State<Dashboard> {
         AppText(text: title, size: FontSize.S),
         HorizontalGap(20),
       ],
-    );
-  }
-
-  Widget _circleIcon(IconData icon) {
-    return CircleAvatar(
-      radius: 15,
-      backgroundColor: AppColors.secondary,
-      child: Icon(icon, color: AppColors.primary, size: 18),
     );
   }
 }
