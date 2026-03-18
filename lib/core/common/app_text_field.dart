@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppTextField extends StatelessWidget {
+  final int? maxLines;
+  final int? minLines;
   final TextEditingController controller;
   final String hintText;
   final IconData? prefixIcon;
@@ -28,13 +30,16 @@ class AppTextField extends StatelessWidget {
     this.onChanged,
     this.onSuffixTap,
     this.borderRadius = const BorderRadius.all(Radius.circular(8)),
-    this.onTap,
+    this.onTap,this.maxLines = 1,
+    this.minLines,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       onTap: onTap,
+      maxLines: maxLines,
+      minLines: minLines,
       controller: controller,
       obscureText: obscureText,
       validator: validator,

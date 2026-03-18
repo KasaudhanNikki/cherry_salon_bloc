@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/common/app_text.dart';
 import '../../../../core/theme/colors.dart';
 import '../../../../core/utils/gap.dart';
+import '../pages/review_screen.dart';
 
 Widget buildReviewsSection(BuildContext context) {
   final reviews = [
@@ -59,7 +60,12 @@ Widget buildReviewHeader(BuildContext context) {
         color: AppColors.textPrimary(context),
       ),
       InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ReviewScreen()),
+          );
+        },
         child: AppText(
           text: 'Write a review',
           weight: FontWeightOption.bold,
