@@ -16,7 +16,7 @@ Widget serviceCard(
   return Container(
     padding: const EdgeInsets.all(12),
     decoration: BoxDecoration(
-      color: Colors.white,
+      color: AppColors.background(context),
       borderRadius: BorderRadius.circular(16),
       boxShadow: const [
         BoxShadow(blurRadius: 8, color: Colors.black12, offset: Offset(0, 3)),
@@ -38,6 +38,7 @@ Widget serviceCard(
                 text: title,
                 weight: FontWeightOption.bold,
                 size: FontSize.M,
+                color: AppColors.textPrimary(context),
               ),
               VerticalGap(4),
               AppText(

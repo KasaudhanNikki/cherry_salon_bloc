@@ -196,7 +196,7 @@ Widget buildHourRow(BuildContext context, String day, String time) {
           text: time,
           weight: FontWeightOption.bold,
           size: FontSize.M,
-          color: isClosed ? AppColors.primary : AppColors.textPrimary(context),
+          color: isClosed ? AppColors.primary : AppColors.gray,
         ),
       ],
     ),

@@ -36,7 +36,7 @@ class AppText extends StatelessWidget {
       text ?? '',
       textAlign: align,
       maxLines: maxLines,
-      overflow: overflow ?? TextOverflow.ellipsis,
+      overflow: overflow,
       softWrap: softWrap ?? true,
       style: TextStyle(
         fontWeight: weight?.value ?? FontWeight.w500,

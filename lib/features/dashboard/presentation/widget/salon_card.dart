@@ -69,8 +69,8 @@ class StudioCard extends StatelessWidget {
                         onTap: onFavorite,
                         child: Container(
                           padding: const EdgeInsets.all(6),
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
+                          decoration: BoxDecoration(
+                            color: AppColors.background(context),
                             shape: BoxShape.circle,
                           ),
                           child: const Icon(

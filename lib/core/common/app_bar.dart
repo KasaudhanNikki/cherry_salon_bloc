@@ -1,3 +1,4 @@
+import 'package:bloc_setup/core/common/app_text.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -17,20 +18,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.backgroundColor,
     this.titleColor,
     this.centerTitle = true,
-    this.padding, this.leadingWidth,
+    this.padding,
+    this.leadingWidth,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       leadingWidth: leadingWidth,
-      title: Text(
-        title ?? "",
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
-          color: titleColor ?? Colors.black,
-        ),
+      title: AppText(
+        text: title ?? "",
+        size: FontSize.M,
+        weight: FontWeightOption.bold,
       ),
       centerTitle: centerTitle,
       elevation: 0,
