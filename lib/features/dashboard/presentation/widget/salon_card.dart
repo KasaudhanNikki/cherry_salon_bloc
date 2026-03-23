@@ -33,13 +33,13 @@ class StudioCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.background(context),
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 12,
-            color: AppColors.textPrimary(context).withOpacity(.08),
-            offset: const Offset(0, 6),
-          ),
-        ],
+        // boxShadow: [
+        //   BoxShadow(
+        //     blurRadius: 6,
+        //     color: AppColors.textPrimary(context).withOpacity(.08),
+        //     offset: const Offset(0, 6),
+        //   ),
+        // ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,18 +48,20 @@ class StudioCard extends StatelessWidget {
             height: 170,
             child: PageView.builder(
               itemCount: images.length,
+              controller: PageController(viewportFraction: 1),
+              physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) {
                 return Stack(
                   children: [
-                    ClipRRect(
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(16),
-                      ),
-                      child: Image.asset(
-                        images[index],
-                        height: 170,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
+                    Container(
+                      height: 170,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: ResizeImage(AssetImage(images[index]), width: 300),
+                          fit: BoxFit.cover,
+                          filterQuality: FilterQuality.low,
+                        ),
                       ),
                     ),
                     Positioned(

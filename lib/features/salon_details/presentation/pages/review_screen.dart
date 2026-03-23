@@ -19,6 +19,12 @@ class _ReviewScreenState extends State<ReviewScreen> {
   final TextEditingController reviewController = TextEditingController();
 
   @override
+  void dispose() {
+    reviewController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background(context),
@@ -64,9 +70,11 @@ class _ReviewScreenState extends State<ReviewScreen> {
               height: 70,
               width: 70,
               fit: BoxFit.cover,
+              cacheWidth: 150,
+              filterQuality: FilterQuality.low,
             ),
           ),
-          HorizontalGap(12),
+          const HorizontalGap(12),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -78,7 +86,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
               ),
               AppText(text: "Hair, Nails & Spa", color: AppColors.primary),
               Row(
-                children: [
+                children: const [
                   Icon(Icons.location_on, size: 14, color: AppColors.primary),
                   AppText(
                     text: " Downtown, New York",
@@ -103,14 +111,13 @@ class _ReviewScreenState extends State<ReviewScreen> {
           size: FontSize.M,
           color: AppColors.textPrimary(context),
         ),
-        VerticalGap(6),
+        const VerticalGap(6),
         AppText(
           text: "Tap to rate your visit",
           size: FontSize.S,
           color: AppColors.gray,
         ),
-        VerticalGap(12),
-
+        const VerticalGap(12),
         RatingBar.builder(
           initialRating: rating.toDouble(),
           minRating: 1,
@@ -137,7 +144,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AppText(text: "YOUR REVIEW", size: FontSize.S, color: AppColors.gray),
-        VerticalGap(8),
+        const VerticalGap(8),
         AppTextField(
           maxLines: 5,
           minLines: 2,
@@ -162,16 +169,16 @@ class _ReviewScreenState extends State<ReviewScreen> {
           size: FontSize.S,
           color: AppColors.gray,
         ),
-        VerticalGap(10),
+        const VerticalGap(10),
         Row(
           children: [
             DottedBorder(
               options: RoundedRectDottedBorderOptions(
                 dashPattern: [10, 5],
                 strokeWidth: 2,
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
+                radius: const Radius.circular(10),
                 color: AppColors.primary,
-                radius: Radius.circular(10),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -185,7 +192,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 ],
               ),
             ),
-            HorizontalGap(12),
+            const HorizontalGap(12),
             Stack(
               children: [
                 ClipRRect(
@@ -195,6 +202,8 @@ class _ReviewScreenState extends State<ReviewScreen> {
                     height: 80,
                     width: 80,
                     fit: BoxFit.cover,
+                    cacheWidth: 150,
+                    filterQuality: FilterQuality.low,
                   ),
                 ),
                 Positioned(
@@ -234,8 +243,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
           size: FontSize.S,
           color: AppColors.gray,
         ),
-        VerticalGap(10),
-
+        const VerticalGap(10),
         Wrap(
           runSpacing: 10,
           children: items.map((e) {

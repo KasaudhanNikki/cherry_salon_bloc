@@ -49,23 +49,29 @@ class AppointmentCard extends StatelessWidget {
                   child: CircleAvatar(
                     radius: 12,
                     backgroundColor: AppColors.primary,
-                    child: Icon(Icons.close, color: AppColors.background(context), size: 18),
+                    child: Icon(
+                      Icons.close,
+                      color: AppColors.background(context),
+                      size: 18,
+                    ),
                   ),
                 ),
               ],
             ),
-            VerticalGap(20),
+            const VerticalGap(20),
             SectionLabel(label: 'SELECT DATE'),
-            VerticalGap(12),
+            const VerticalGap(12),
             DateRow(controller: controller),
-            VerticalGap(10),
-            GestureDetector(
+            const VerticalGap(10),
+            InkWell(
               onTap: () async {
+                final now = DateTime.now();
+
                 final pickedDate = await showDatePicker(
                   context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime.now(),
-                  lastDate: DateTime.now().add(const Duration(days: 365)),
+                  initialDate: now,
+                  firstDate: now,
+                  lastDate: now.add(const Duration(days: 365)),
                 );
 
                 if (pickedDate != null) {
@@ -89,14 +95,14 @@ class AppointmentCard extends StatelessWidget {
                 ],
               ),
             ),
-            VerticalGap(20),
+            const VerticalGap(20),
             SectionLabel(label: 'SELECT TIME'),
-            VerticalGap(12),
+            const VerticalGap(12),
             TimeGrid(controller: controller),
-            VerticalGap(20),
+            const VerticalGap(20),
             CustomIconButton(
               isLoading: false,
-              width: MediaQuery.of(context).size.width,
+              width: double.infinity,
               height: 45,
               text: 'Confirm Booking',
               icon: Icons.arrow_forward,

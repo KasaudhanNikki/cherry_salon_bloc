@@ -24,6 +24,19 @@ class _SplashScreenState extends State<SplashScreen>
 
     final token = await tokenStorage.getToken();
 
+    // Precache heavy dashboard images to prevent jank when navigating
+    try {
+      if (mounted) {
+        await Future.wait([
+          precacheImage(const AssetImage("assets/images/slider1.jpg"), context),
+          precacheImage(const AssetImage("assets/images/slider2.jpg"), context),
+          precacheImage(const AssetImage("assets/featured_services/haircut.png"), context),
+          precacheImage(const AssetImage("assets/featured_services/beard.png"), context),
+          precacheImage(const AssetImage("assets/featured_services/nails.png"), context),
+        ]);
+      }
+    } catch (_) {}
+
     await Future.delayed(const Duration(seconds: 3));
 
     if (!mounted) return;
@@ -50,10 +63,7 @@ class _SplashScreenState extends State<SplashScreen>
     );
 
     _progressAnimation =
-        Tween<double>(begin: 0.0, end: 1.0).animate(_progressController)
-          ..addListener(() {
-            setState(() {});
-          });
+        Tween<double>(begin: 0.0, end: 1.0).animate(_progressController);
 
     _progressController.forward();
 
@@ -113,34 +123,44 @@ class _SplashScreenState extends State<SplashScreen>
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      AppText(
-                        text: "INITIALIZING",
-                        size: FontSize.M,
-                        weight: FontWeightOption.bold,
-                        color: AppColors.primary,
-                      ),
-                      AppText(
-                        text: "${(_progressAnimation.value * 100).toInt()}%",
-                        size: FontSize.S,
-                        weight: FontWeightOption.bold,
-                        color: AppColors.primary,
-                      ),
-                    ],
+                  AnimatedBuilder(
+                    animation: _progressAnimation,
+                    builder: (context, child) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          AppText(
+                            text: "INITIALIZING",
+                            size: FontSize.M,
+                            weight: FontWeightOption.bold,
+                            color: AppColors.primary,
+                          ),
+                          AppText(
+                            text: "${(_progressAnimation.value * 100).toInt()}%",
+                            size: FontSize.S,
+                            weight: FontWeightOption.bold,
+                            color: AppColors.primary,
+                          ),
+                        ],
+                      );
+                    },
                   ),
                   VerticalGap(12),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: LinearProgressIndicator(
-                      value: _progressAnimation.value,
-                      minHeight: 6,
-                      backgroundColor: AppColors.secondary,
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        AppColors.primary,
-                      ),
-                    ),
+                  AnimatedBuilder(
+                    animation: _progressAnimation,
+                    builder: (context, child) {
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: LinearProgressIndicator(
+                          value: _progressAnimation.value,
+                          minHeight: 6,
+                          backgroundColor: AppColors.secondary,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            AppColors.primary,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                   VerticalGap(20),
                   Row(

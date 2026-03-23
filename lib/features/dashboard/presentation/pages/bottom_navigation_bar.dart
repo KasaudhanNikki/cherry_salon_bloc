@@ -12,7 +12,7 @@ class BottomNavigation extends StatefulWidget {
 class _BottomNavigationState extends State<BottomNavigation> {
   int currentIndex = 0;
 
-  final List<Widget> pages = [
+  final List<Widget> pages = const [
     Dashboard(),
     Center(child: Text("Men")),
     Center(child: Text("Women")),
@@ -23,12 +23,15 @@ class _BottomNavigationState extends State<BottomNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[currentIndex],
+      body: SafeArea(
+        child: IndexedStack(index: currentIndex, children: pages),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
         selectedItemColor: AppColors.primary,
         unselectedItemColor: AppColors.gray,
         type: BottomNavigationBarType.fixed,
+        showUnselectedLabels: false,
         onTap: (index) {
           setState(() {
             currentIndex = index;

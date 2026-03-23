@@ -21,6 +21,13 @@ class _ResetPasswordState extends State<ResetPassword> {
   bool _showConfirmPassword = false;
 
   @override
+  void dispose() {
+    newPassword.dispose();
+    confirmPassword.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: "Reset Password"),
@@ -29,23 +36,28 @@ class _ResetPasswordState extends State<ResetPassword> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset('assets/images/forget_password.png', height: 120),
-            VerticalGap(20),
+            Image.asset(
+              'assets/images/forget_password.png',
+              height: 120,
+              cacheWidth: 300,
+              filterQuality: FilterQuality.low,
+            ),
+            const VerticalGap(20),
             AppText(
               text: "Reset Password",
               size: FontSize.XXL,
               weight: FontWeightOption.bold,
             ),
-            VerticalGap(8),
+            const VerticalGap(8),
             AppText(
               text:
                   "Create a new password for your account. Make sure it's strong and unique.",
               size: FontSize.M,
               color: AppColors.gray,
             ),
-            VerticalGap(25),
+            const VerticalGap(25),
             AppText(text: "New Password", weight: FontWeightOption.medium),
-            VerticalGap(8),
+            const VerticalGap(8),
             AppTextField(
               controller: newPassword,
               hintText: "Enter new password",
@@ -65,11 +77,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                 setState(() {});
               },
             ),
-            VerticalGap(10),
+            const VerticalGap(10),
             passwordStrength(newPassword.text),
-            VerticalGap(20),
+            const VerticalGap(20),
             AppText(text: "Confirm Password", weight: FontWeightOption.medium),
-            VerticalGap(8),
+            const VerticalGap(8),
             AppTextField(
               controller: confirmPassword,
               hintText: "Enter confirm password",
@@ -86,23 +98,43 @@ class _ResetPasswordState extends State<ResetPassword> {
                 });
               },
             ),
-            VerticalGap(25),
+            const VerticalGap(25),
             CustomIconButton(
               isLoading: false,
-              width: MediaQuery.of(context).size.width,
+              width: double.infinity,
               height: 45,
               text: "Reset Password",
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ResetSuccessPassword(),
-                  ),
-                );
-              },
+              onPressed:
+                  (newPassword.text.isEmpty || confirmPassword.text.isEmpty)
+                  ? null
+                  : () {
+                      FocusScope.of(context).unfocus();
+                      if (newPassword.text.isEmpty ||
+                          confirmPassword.text.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Please fill all fields"),
+                          ),
+                        );
+                        return;
+                      }
+                      if (newPassword.text != confirmPassword.text) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Passwords do not match"),
+                          ),
+                        );
+                        return;
+                      }
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ResetSuccessPassword(),
+                        ),
+                      );
+                    },
             ),
-            VerticalGap(20),
-
+            const VerticalGap(20),
             Center(
               child: RichText(
                 text: const TextSpan(
@@ -126,7 +158,7 @@ class _ResetPasswordState extends State<ResetPassword> {
   Widget passwordStrength(String password) {
     int strength = 0;
 
-    if (password.length > 6) strength++;
+    if (password.length >= 8) strength++;
     if (password.contains(RegExp(r'[A-Z]'))) strength++;
     if (password.contains(RegExp(r'[0-9]'))) strength++;
     if (password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) strength++;

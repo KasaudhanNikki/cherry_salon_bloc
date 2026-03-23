@@ -25,6 +25,13 @@ class _LoginPageState extends State<LoginPage> {
   final passwordController = TextEditingController();
 
   @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => sl<LoginBloc>(),
@@ -48,230 +55,196 @@ class _LoginPageState extends State<LoginPage> {
             }
           },
           builder: (context, state) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  VerticalGap(80),
-                  Center(
-                    child: Image.asset(
-                      "assets/images/cherry_salon_logo.png",
-                      width: 300,
-                      height: 200,
-                      fit: BoxFit.contain,
+            return SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+                    Center(
+                      child: Image.asset(
+                        "assets/images/cherry_salon_logo.png",
+                        width: 300,
+                        height: 200,
+                        fit: BoxFit.contain,
+                        cacheWidth: 150,
+                        filterQuality: FilterQuality.low,
+                      ),
                     ),
-                  ),
-                  Center(
-                    child: AppText(
-                      text: "Cherry Salon",
-                      size: FontSize.XL,
-                      weight: FontWeightOption.bold,
-                      color: AppColors.textPrimary(context),
+                    Center(
+                      child: AppText(
+                        text: "Cherry Salon",
+                        size: FontSize.XL,
+                        weight: FontWeightOption.bold,
+                        color: AppColors.textPrimary(context),
+                      ),
                     ),
-                  ),
-                  VerticalGap(5),
-                  Center(
-                    child: AppText(
-                      text: "Welcome Back!",
-                      size: FontSize.M,
-                      weight: FontWeightOption.medium,
-                      color: AppColors.gray,
-                    ),
-                  ),
-                  VerticalGap(20),
-                  AppText(
-                    text: 'Email Address',
-                    size: FontSize.M,
-                    weight: FontWeightOption.medium,
-                  ),
-                  VerticalGap(5),
-                  AppTextField(
-                    controller: emailController,
-                    hintText: "Enter Email",
-                    prefixIcon: Icons.email_outlined,
-                    iconColor: AppColors.primary,
-                    borderColor: AppColors.secondary,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Email is required";
-                      }
-                      return null;
-                    },
-                  ),
-                  VerticalGap(15),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      AppText(
-                        text: 'Password',
+                    const VerticalGap(5),
+                    Center(
+                      child: AppText(
+                        text: "Welcome Back!",
                         size: FontSize.M,
                         weight: FontWeightOption.medium,
+                        color: AppColors.gray,
                       ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ForgetPassword(),
-                            ),
-                          );
-                        },
-                        child: AppText(
-                          text: 'Forget Password?',
+                    ),
+                    const VerticalGap(20),
+                    AppText(
+                      text: 'Email Address',
+                      size: FontSize.M,
+                      weight: FontWeightOption.medium,
+                    ),
+                    const VerticalGap(5),
+                    AppTextField(
+                      controller: emailController,
+                      hintText: "Enter Email",
+                      prefixIcon: Icons.email_outlined,
+                      iconColor: AppColors.primary,
+                      borderColor: AppColors.secondary,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Email is required";
+                        }
+                        return null;
+                      },
+                    ),
+                    const VerticalGap(15),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const AppText(
+                          text: 'Password',
                           size: FontSize.M,
                           weight: FontWeightOption.medium,
-                          color: AppColors.primary,
                         ),
-                      ),
-                    ],
-                  ),
-                  VerticalGap(5),
-                  AppTextField(
-                    controller: passwordController,
-                    hintText: "Enter Password",
-                    prefixIcon: Icons.lock_outline,
-                    iconColor: AppColors.primary,
-                    borderColor: AppColors.secondary,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Email is required";
-                      }
-                      return null;
-                    },
-                  ),
-                  VerticalGap(25),
-                  CustomIconButton(
-                    isLoading: state is LoginLoading,
-                    width: MediaQuery.of(context).size.width,
-                    height: 45,
-                    text: "Login",
-                    icon: Icons.arrow_forward,
-                    onPressed: () {
-                      context.read<LoginBloc>().add(
-                        LoginSubmitted(
-                          email: emailController.text,
-                          password: passwordController.text,
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ForgetPassword(),
+                              ),
+                            );
+                          },
+                          child: AppText(
+                            text: 'Forget Password?',
+                            size: FontSize.M,
+                            weight: FontWeightOption.medium,
+                            color: AppColors.primary,
+                          ),
                         ),
-                      );
-                    },
-                  ),
-                  VerticalGap(20),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          height: 1,
-                          color: AppColors.gray.withAlpha(100),
-                          endIndent: 10,
-                        ),
-                      ),
-                      AppText(text: 'Or continue with', color: AppColors.gray),
-                      Expanded(
-                        child: Divider(
-                          height: 1,
-                          color: AppColors.gray.withAlpha(100),
-                          indent: 10,
-                        ),
-                      ),
-                    ],
-                  ),
-                  VerticalGap(15),
-                  Center(
-                    child: Image.asset(
-                      'assets/images/google.png',
-                      height: 50,
-                      width: 50,
+                      ],
                     ),
-                  ),
-                  VerticalGap(12),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      AppText(
-                        text: "Don't have an account?",
-                        color: AppColors.gray,
-                        size: FontSize.M,
-                      ),
-                      HorizontalGap(2),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => RegisterScreen(),
+                    const VerticalGap(5),
+                    AppTextField(
+                      controller: passwordController,
+                      hintText: "Enter Password",
+                      prefixIcon: Icons.lock_outline,
+                      iconColor: AppColors.primary,
+                      borderColor: AppColors.secondary,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Password is required";
+                        }
+                        return null;
+                      },
+                    ),
+                    const VerticalGap(25),
+                    CustomIconButton(
+                      isLoading: state is LoginLoading,
+                      width: double.infinity,
+                      height: 45,
+                      text: "Login",
+                      icon: Icons.arrow_forward,
+                      onPressed: () {
+                        FocusScope.of(context).unfocus();
+                        if (emailController.text.isEmpty ||
+                            passwordController.text.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Please fill all fields"),
                             ),
                           );
-                        },
-                        child: AppText(
-                          text: ' SignUp',
-                          color: AppColors.primary,
-                          size: FontSize.L,
+                          return;
+                        }
+
+                        context.read<LoginBloc>().add(
+                          LoginSubmitted(
+                            email: emailController.text.trim(),
+                            password: passwordController.text.trim(),
+                          ),
+                        );
+                      },
+                    ),
+                    const VerticalGap(20),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Divider(
+                            height: 1,
+                            color: AppColors.gray.withAlpha(100),
+                            endIndent: 10,
+                          ),
                         ),
+                        AppText(
+                          text: 'Or continue with',
+                          color: AppColors.gray,
+                        ),
+                        Expanded(
+                          child: Divider(
+                            height: 1,
+                            color: AppColors.gray.withAlpha(100),
+                            indent: 10,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const VerticalGap(15),
+                    Center(
+                      child: Image.asset(
+                        'assets/images/google.png',
+                        height: 50,
+                        width: 50,
+                        cacheWidth: 150,
+                        filterQuality: FilterQuality.low,
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                    const VerticalGap(12),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        AppText(
+                          text: "Don't have an account?",
+                          color: AppColors.gray,
+                          size: FontSize.M,
+                        ),
+                        const HorizontalGap(2),
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => RegisterScreen(),
+                              ),
+                            );
+                          },
+                          child: AppText(
+                            text: ' SignUp',
+                            color: AppColors.primary,
+                            size: FontSize.L,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             );
           },
         ),
       ),
     );
-    // return BlocProvider(
-    //   create: (_) => sl<LoginBloc>(),
-    //   child: Scaffold(
-    //     appBar: AppBar(title: const Text("Login")),
-    //     body: Padding(
-    //       padding: const EdgeInsets.all(20),
-    //       child: BlocConsumer<LoginBloc, LoginState>(
-    //         listener: (context, state) {
-    //           if (state is LoginSuccess) {
-    //             ScaffoldMessenger.of(
-    //               context,
-    //             ).showSnackBar(SnackBar(content: Text("Success")));
-    //           }
-    //           if (state is LoginError) {
-    //             ScaffoldMessenger.of(
-    //               context,
-    //             ).showSnackBar(SnackBar(content: Text(state.message)));
-    //           }
-    //         },
-    //         builder: (context, state) {
-    //           return Column(
-    //             children: [
-    //               TextField(
-    //                 controller: emailController,
-    //                 decoration: const InputDecoration(labelText: "Email"),
-    //               ),
-    //               VerticalGap(15),
-    //               TextField(
-    //                 controller: passwordController,
-    //                 obscureText: true,
-    //                 decoration: const InputDecoration(labelText: "Password"),
-    //               ),
-    //               VerticalGap(20),
-    //               if (state is LoginLoading)
-    //                 const CircularProgressIndicator()
-    //               else
-    //                 ElevatedButton(
-    //                   onPressed: () {
-    //                     context.read<LoginBloc>().add(
-    //                       LoginSubmitted(
-    //                         email: emailController.text,
-    //                         password: passwordController.text,
-    //                       ),
-    //                     );
-    //                   },
-    //                   child: const Text("Login"),
-    //                 ),
-    //             ],
-    //           );
-    //         },
-    //       ),
-    //     ),
-    //   ),
-    // );
   }
 }

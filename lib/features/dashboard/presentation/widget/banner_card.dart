@@ -26,7 +26,14 @@ class BannerCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         child: Stack(
           children: [
-            Positioned.fill(child: Image.asset(image, fit: BoxFit.cover)),
+            Positioned.fill(
+              child: Image.asset(
+                image,
+                fit: BoxFit.cover,
+                filterQuality: FilterQuality.low,
+                cacheWidth: 300,
+              ),
+            ),
             Positioned.fill(
               child: Container(
                 decoration: BoxDecoration(

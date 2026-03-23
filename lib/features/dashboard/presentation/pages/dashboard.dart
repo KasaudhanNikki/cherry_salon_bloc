@@ -32,7 +32,9 @@ class _DashboardState extends State<Dashboard> {
 
   final List<DealModel> deals = [
     DealModel(
-      image: "assets/images/slider1.jpg",
+      image:
+          "assets/images/"
+          "slider1.jpg",
       tag: "SUMMER DEAL",
       title: "20% Off All Haircuts",
       subtitle: "Valid until end of June",
@@ -53,6 +55,7 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: CustomAppBar(
@@ -86,194 +89,189 @@ class _DashboardState extends State<Dashboard> {
           HorizontalGap(10),
         ],
       ),
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AppTextField(
-                  controller: searchController,
-                  hintText: "Search for hair, nails, or spa...",
-                  prefixIcon: Icons.search,
-                  iconColor: AppColors.primary,
-                  borderColor: AppColors.secondary,
-                  borderRadius: BorderRadius.circular(12),
-                  focusedBorderColor: AppColors.primary,
-                  validator: (value) => null,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SearchScreen()),
-                    );
-                  },
-                ),
-                VerticalGap(20),
-                CarouselSlider(
-                  options: CarouselOptions(
-                    height: 170,
-                    viewportFraction: 0.9,
-                    enlargeCenterPage: true,
-                    autoPlay: true,
+      body: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        children: [
+          AppTextField(
+            controller: searchController,
+            hintText: "Search for hair, nails, or spa...",
+            prefixIcon: Icons.search,
+            readOnly: true,
+            iconColor: AppColors.primary,
+            borderColor: AppColors.secondary,
+            borderRadius: BorderRadius.circular(12),
+            focusedBorderColor: AppColors.primary,
+            validator: (value) => null,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SearchScreen()),
+              );
+            },
+          ),
+          VerticalGap(20),
+          CarouselSlider(
+            options: CarouselOptions(
+              height: 170,
+              viewportFraction: 0.9,
+              enlargeCenterPage: false,
+              autoPlay: false,
+            ),
+            items: deals.map((deal) {
+              return BannerCard(
+                width: screenWidth,
+                image: deal.image,
+                tag: deal.tag,
+                title: deal.title,
+                subtitle: deal.subtitle,
+              );
+            }).toList(),
+          ),
+          VerticalGap(20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              AppText(
+                text: "Categories",
+                size: FontSize.M,
+                weight: FontWeightOption.bold,
+              ),
+              AppText(
+                text: "View All",
+                size: FontSize.M,
+                weight: FontWeightOption.bold,
+                color: AppColors.primary,
+              ),
+            ],
+          ),
+          VerticalGap(15),
+          SizedBox(
+            height: 95,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: categories.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: SizedBox(
+                    width: 80,
+                    child: _category(
+                      categories[index]["icon"],
+                      categories[index]["title"],
+                    ),
                   ),
-                  items: deals.map((deal) {
-                    return BannerCard(
-                      width: MediaQuery.of(context).size.width,
-                      image: deal.image,
-                      tag: deal.tag,
-                      title: deal.title,
-                      subtitle: deal.subtitle,
-                    );
-                  }).toList(),
-                ),
-                VerticalGap(20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AppText(
-                      text: "Categories",
-                      size: FontSize.M,
-                      weight: FontWeightOption.bold,
-                    ),
-                    AppText(
-                      text: "View All",
-                      size: FontSize.M,
-                      weight: FontWeightOption.bold,
-                      color: AppColors.primary,
-                    ),
-                  ],
-                ),
-                VerticalGap(15),
-                SizedBox(
-                  height: 95,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: categories.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: SizedBox(
-                          width: 80,
-                          child: _category(
-                            categories[index]["icon"],
-                            categories[index]["title"],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                VerticalGap(20),
-                AppText(
-                  text: "Featured Services",
-                  size: FontSize.M,
-                  weight: FontWeightOption.bold,
-                ),
-                VerticalGap(15),
-                serviceCard(
-                  "assets/featured_services/haircut.png",
-                  "Signature Haircut",
-                  "Personalized cut, wash & blow-dry...",
-                  "\$45",
-                  context,
-                ),
-                VerticalGap(12),
-                serviceCard(
-                  "assets/featured_services/beard.png",
-                  "Beard Grooming",
-                  "Trim, shape and hot towel treatment",
-                  "\$25",
-                  context,
-                ),
-                VerticalGap(12),
-                serviceCard(
-                  "assets/featured_services/nails.png",
-                  "Gel Manicure",
-                  "Long-lasting color with cuticle care",
-                  "\$35",
-                  context,
-                ),
-                VerticalGap(20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AppText(
-                      text: "Nearby Salons",
-                      size: FontSize.M,
-                      weight: FontWeightOption.bold,
-                    ),
-                    AppText(
-                      text: "See All",
-                      size: FontSize.M,
-                      weight: FontWeightOption.bold,
-                      color: AppColors.primary,
-                    ),
-                  ],
-                ),
-                VerticalGap(15),
-                StudioCard(
-                  images: [
-                    "assets/salon_images/salon1.png",
-                    "assets/salon_images/salon2.png",
-                  ],
-                  title: "Velvet Rose Studio",
-                  location: "Downtown",
-                  distance: "2.4 miles away",
-                  rating: 4.8,
-                  onViewDetails: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SalonDetails()),
-                    );
-                  },
-                  onBookNow: () {
-                    setState(() {
-                      isShowAppoinment = true;
-                    });
-                  },
-                  onFavorite: () {},
-                ),
-                VerticalGap(10),
-                StudioCard(
-                  images: [
-                    "assets/salon_images/salon3.png",
-                    "assets/salon_images/salon2.png",
-                    "assets/salon_images/salon1.png",
-                  ],
-                  title: "The Crimson Curl",
-                  location: "WestEnd",
-                  distance: "0.8 miles away",
-                  rating: 2.8,
-                  onViewDetails: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SalonDetails()),
-                    );
-                  },
-                  onBookNow: () {
-                    setState(() {
-                      isShowAppoinment = true;
-                    });
-                  },
-                  onFavorite: () {},
-                ),
-                VerticalGap(15),
-                isShowAppoinment
-                    ? AppointmentCard(
-                        controller: controller,
-                        onClose: () {
-                          setState(() {
-                            isShowAppoinment = false;
-                          });
-                        },
-                      )
-                    : SizedBox.shrink(),
-              ],
+                );
+              },
             ),
           ),
-        ),
+          VerticalGap(20),
+          AppText(
+            text: "Featured Services",
+            size: FontSize.M,
+            weight: FontWeightOption.bold,
+          ),
+          VerticalGap(15),
+          ServiceCard(
+            image: "assets/featured_services/haircut.png",
+            title: "Signature Haircut",
+            subtitle: "Personalized cut...",
+            price: "\$45",
+            onBook: () => _openDialog(context),
+          ),
+
+          const SizedBox(height: 12),
+
+          ServiceCard(
+            image: "assets/featured_services/beard.png",
+            title: "Beard Grooming",
+            subtitle: "Trim & shape...",
+            price: "\$25",
+            onBook: () => _openDialog(context),
+          ),
+          VerticalGap(12),
+          ServiceCard(
+            image: "assets/featured_services/nails.png",
+            title: "Gel Manicure",
+            subtitle: "Long-lasting color with cuticle care",
+            price: "\$35",
+            onBook: () => _openDialog(context),
+          ),
+          VerticalGap(20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              AppText(
+                text: "Nearby Salons",
+                size: FontSize.M,
+                weight: FontWeightOption.bold,
+              ),
+              AppText(
+                text: "See All",
+                size: FontSize.M,
+                weight: FontWeightOption.bold,
+                color: AppColors.primary,
+              ),
+            ],
+          ),
+          VerticalGap(15),
+          StudioCard(
+            images: const [
+              "assets/salon_images/salon1.png",
+              "assets/salon_images/salon2.png",
+            ],
+            title: "Velvet Rose Studio",
+            location: "Downtown",
+            distance: "2.4 miles away",
+            rating: 4.8,
+            onViewDetails: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SalonDetails()),
+              );
+            },
+            onBookNow: () {
+              setState(() {
+                isShowAppoinment = true;
+              });
+            },
+            onFavorite: () {},
+          ),
+          VerticalGap(10),
+          StudioCard(
+            images: const [
+              "assets/salon_images/salon3.png",
+              "assets/salon_images/salon2.png",
+              "assets/salon_images/salon1.png",
+            ],
+            title: "The Crimson Curl",
+            location: "WestEnd",
+            distance: "0.8 miles away",
+            rating: 2.8,
+            onViewDetails: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SalonDetails()),
+              );
+            },
+            onBookNow: () {
+              setState(() {
+                isShowAppoinment = true;
+              });
+            },
+            onFavorite: () {},
+          ),
+          VerticalGap(15),
+          isShowAppoinment
+              ? AppointmentCard(
+                  controller: controller,
+                  onClose: () {
+                    setState(() {
+                      isShowAppoinment = false;
+                    });
+                  },
+                )
+              : SizedBox.shrink(),
+        ],
       ),
     );
   }
@@ -292,8 +290,20 @@ class _DashboardState extends State<Dashboard> {
         ),
         VerticalGap(6),
         AppText(text: title, size: FontSize.S),
-        HorizontalGap(20),
       ],
+    );
+  }
+
+  void _openDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (_) => Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: AppointmentCard(
+          controller: controller,
+          onClose: () => Navigator.pop(context),
+        ),
+      ),
     );
   }
 }

@@ -24,6 +24,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    phoneController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -49,146 +59,165 @@ class _RegisterScreenState extends State<RegisterScreen> {
             }
           },
           builder: (context, state) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText(
-                    text: "Create Your Account",
-                    size: FontSize.XXL,
-                    weight: FontWeightOption.bold,
-                  ),
-                  VerticalGap(8),
-                  AppText(
-                    text: "Join us for a premium salon experience.",
-                    color: AppColors.gray,
-                  ),
-                  VerticalGap(20),
-                  AppText(
-                    text: 'Full Name',
-                    size: FontSize.M,
-                    weight: FontWeightOption.medium,
-                  ),
-                  VerticalGap(7),
-                  AppTextField(
-                    controller: nameController,
-                    hintText: "Enter your full name",
-                    prefixIcon: Icons.person_2_outlined,
-                    iconColor: AppColors.gray,
-                    borderColor: AppColors.gray,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "name is required";
-                      }
-                      return null;
-                    },
-                  ),
-                  VerticalGap(12),
-                  AppText(
-                    text: 'Email',
-                    size: FontSize.M,
-                    weight: FontWeightOption.medium,
-                  ),
-                  VerticalGap(5),
-                  AppTextField(
-                    controller: emailController,
-                    hintText: "Enter your email address",
-                    prefixIcon: Icons.email_outlined,
-                    iconColor: AppColors.gray,
-                    borderColor: AppColors.gray,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Email is required";
-                      }
-                      return null;
-                    },
-                  ),
-                  VerticalGap(12),
-                  AppText(
-                    text: 'Phone Number',
-                    size: FontSize.M,
-                    weight: FontWeightOption.medium,
-                  ),
-                  VerticalGap(5),
-                  AppTextField(
-                    controller: phoneController,
-                    hintText: "Enter your phone number",
-                    prefixIcon: Icons.phone,
-                    iconColor: AppColors.gray,
-                    borderColor: AppColors.gray,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Phone number is required";
-                      }
-                      return null;
-                    },
-                  ),
-                  VerticalGap(12),
-                  AppText(
-                    text: 'Password',
-                    size: FontSize.M,
-                    weight: FontWeightOption.medium,
-                  ),
-                  VerticalGap(5),
-                  AppTextField(
-                    controller: passwordController,
-                    hintText: "Enter your password",
-                    prefixIcon: Icons.lock_open_outlined,
-                    iconColor: AppColors.gray,
-                    borderColor: AppColors.gray,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Password is required";
-                      }
-                      return null;
-                    },
-                  ),
-                  VerticalGap(25),
-                  CustomIconButton(
-                    width: MediaQuery.of(context).size.width,
-                    height: 45,
-                    text: "Sign Up",
-                    onPressed: () {
-                      context.read<RegisterBloc>().add(
-                        RegisterSubmitted(
-                          username: nameController.text,
-                          email: emailController.text,
-                          password: passwordController.text,
-                          phone: phoneController.text,
-                        ),
-                      );
-                    },
-                  ),
-                  VerticalGap(20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      AppText(
-                        text: "Already have an account?",
-                        color: AppColors.gray,
-                        size: FontSize.M,
-                      ),
-                      HorizontalGap(2),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LoginPage(),
+            return SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 20,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const AppText(
+                      text: "Create Your Account",
+                      size: FontSize.XXL,
+                      weight: FontWeightOption.bold,
+                    ),
+                    const VerticalGap(8),
+                    AppText(
+                      text: "Join us for a premium salon experience.",
+                      color: AppColors.gray,
+                    ),
+                    const VerticalGap(20),
+                    const AppText(
+                      text: 'Full Name',
+                      size: FontSize.M,
+                      weight: FontWeightOption.medium,
+                    ),
+                    const VerticalGap(7),
+                    AppTextField(
+                      controller: nameController,
+                      hintText: "Enter your full name",
+                      prefixIcon: Icons.person_2_outlined,
+                      iconColor: AppColors.gray,
+                      borderColor: AppColors.gray,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "name is required";
+                        }
+                        return null;
+                      },
+                    ),
+                    const VerticalGap(12),
+                    const AppText(
+                      text: 'Email',
+                      size: FontSize.M,
+                      weight: FontWeightOption.medium,
+                    ),
+                    const VerticalGap(5),
+                    AppTextField(
+                      controller: emailController,
+                      hintText: "Enter your email address",
+                      prefixIcon: Icons.email_outlined,
+                      iconColor: AppColors.gray,
+                      borderColor: AppColors.gray,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Email is required";
+                        }
+                        return null;
+                      },
+                    ),
+                    const VerticalGap(12),
+                    AppText(
+                      text: 'Phone Number',
+                      size: FontSize.M,
+                      weight: FontWeightOption.medium,
+                    ),
+                    const VerticalGap(5),
+                    AppTextField(
+                      controller: phoneController,
+                      hintText: "Enter your phone number",
+                      prefixIcon: Icons.phone,
+                      iconColor: AppColors.gray,
+                      borderColor: AppColors.gray,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Phone number is required";
+                        }
+                        return null;
+                      },
+                    ),
+                    const VerticalGap(12),
+                    AppText(
+                      text: 'Password',
+                      size: FontSize.M,
+                      weight: FontWeightOption.medium,
+                    ),
+                    const VerticalGap(5),
+                    AppTextField(
+                      controller: passwordController,
+                      hintText: "Enter your password",
+                      prefixIcon: Icons.lock_open_outlined,
+                      iconColor: AppColors.gray,
+                      borderColor: AppColors.gray,
+                      obscureText: true,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Password is required";
+                        }
+                        return null;
+                      },
+                    ),
+                    const VerticalGap(25),
+                    CustomIconButton(
+                      width: double.infinity,
+                      height: 45,
+                      text: "Sign Up",
+                      onPressed: () {
+                        FocusScope.of(context).unfocus();
+                        if (nameController.text.isEmpty ||
+                            emailController.text.isEmpty ||
+                            phoneController.text.isEmpty ||
+                            passwordController.text.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Please fill all fields"),
                             ),
                           );
-                        },
-                        child: AppText(
-                          text: ' Log In',
-                          color: AppColors.primary,
-                          size: FontSize.L,
+                          return;
+                        }
+
+                        context.read<RegisterBloc>().add(
+                          RegisterSubmitted(
+                            username: nameController.text.trim(),
+                            email: emailController.text.trim(),
+                            password: passwordController.text.trim(),
+                            phone: phoneController.text.trim(),
+                          ),
+                        );
+                      },
+                    ),
+                    const VerticalGap(20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        AppText(
+                          text: "Already have an account?",
+                          color: AppColors.gray,
+                          size: FontSize.M,
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                        const HorizontalGap(2),
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LoginPage(),
+                              ),
+                            );
+                          },
+                          child: AppText(
+                            text: ' Log In',
+                            color: AppColors.primary,
+                            size: FontSize.L,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             );
           },

@@ -12,24 +12,19 @@ import 'features/auth/presentation/bloc/login_bloc.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  /// Bloc
   sl.registerFactory(() => LoginBloc(loginUseCase: sl(), tokenStorage: sl()));
 
   sl.registerFactory(
     () => RegisterBloc(registerUseCase: sl(), tokenStorage: sl()),
   );
 
-  /// UseCases
   sl.registerLazySingleton(() => LoginUseCase(sl()));
   sl.registerLazySingleton(() => RegisterUseCase(sl()));
 
-  /// Repository
   sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(sl()));
 
-  /// DataSource
   sl.registerLazySingleton(() => AuthRemoteDataSource(sl()));
 
-  /// Core
   sl.registerLazySingleton(() => TokenStorage());
 
   sl.registerLazySingleton(() => DioClient(sl()));

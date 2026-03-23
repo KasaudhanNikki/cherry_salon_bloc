@@ -16,8 +16,10 @@ class AppTextField extends StatelessWidget {
   final VoidCallback? onSuffixTap;
   final BorderRadius borderRadius;
   final VoidCallback? onTap;
+  final bool readOnly;
   const AppTextField({
     super.key,
+    this.readOnly = false,
     required this.controller,
     required this.hintText,
     this.prefixIcon,
@@ -38,6 +40,7 @@ class AppTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       onTap: onTap,
+      readOnly: readOnly,
       maxLines: maxLines,
       minLines: minLines,
       controller: controller,
